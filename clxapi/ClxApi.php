@@ -3,7 +3,7 @@
 class ClxApi {
 
     /**
-     * The SPI base URL
+     * The API base URL
      */
     const API_URL = '';
 
