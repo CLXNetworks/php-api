@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Clx_Http_Client.php';
+
 class ClxApi {
 
     /**
@@ -7,12 +9,22 @@ class ClxApi {
      */
     const API_URL = '';
 
+    private $username = '';
+
+    private $password = '';
+
+    private $http_client = '';
 
     /**
      * Deafault Constructor
+     * @param string
+     * @param string
      */
-    public function __construct() {
+    public function __construct($username, $password) {
+        $this->username = $username;
+        $this->password = $password;
 
+        $this->http_client = new Clx_Http_Client($this->username, $this->password);
     }
 
     /**
@@ -21,30 +33,29 @@ class ClxApi {
      */
     public function getOperators() {
 
-    }
+        $HTTPrequest = $this->http_client;
+        $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator');
+        $operators = $HTTPrequest->doRequest('GET');
 
-    /**
-     * Get Operator By ID
-     * /api/operator/:id
-     */
-    public function getOperatorById() {
+        return $operators;
 
     }
 
     /**
-     * Get All Gateways
-     * /api/gateway/
+     * @param  string
      */
-    public function getGateways() {
+    public function getOperatorsById($operator_id) {
 
+        if(is_numeric($operator_id)) {
 
-    }
+            $HTTPrequest = $this->http_client;
+            $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator/' . $operator_id);
+            $operator = $HTTPrequest->doRequest('GET');
 
-    /**
-     * Get Gateway By ID
-     * /api/gateway/:id
-     */
-    public function getGatewayById() {
+            return $operator;
+        }
+
+        
 
     }
 
