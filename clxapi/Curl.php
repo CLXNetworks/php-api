@@ -2,9 +2,9 @@
 
 class Curl {
 
-    private $username = '';
+    private $username;
 
-    private $password = '';
+    private $password;
 
     public function __construct($username, $password) {
         $this->username = $username;

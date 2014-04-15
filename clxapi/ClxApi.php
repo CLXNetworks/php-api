@@ -4,11 +4,11 @@ require_once 'Clx_Http_Client.php';
 
 class ClxApi {
 
-    private $username = '';
+    private $username;
 
-    private $password = '';
+    private $password;
 
-    private $http_client = '';
+    private $http_client;
 
     /**
      * Deafault Constructor
@@ -37,6 +37,7 @@ class ClxApi {
     }
 
     /**
+     * Get a specific operator by id
      * @param  string
      */
     public function getOperatorsById($operator_id) {
@@ -48,6 +49,9 @@ class ClxApi {
             $operator = $HTTPrequest->doRequest('GET');
 
             return $operator;
+        } 
+        else {
+            throw new Exception("operator_id must be an integer");
         }
 
         

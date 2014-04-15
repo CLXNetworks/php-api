@@ -4,13 +4,13 @@ require_once 'Curl.php';
 
 class Clx_Http_Client {
 
-    private $uri = '';
+    private $uri;
 
-    private $username = '';
+    private $username;
 
-    private $password = '';
+    private $password;
 
-    private $curl = '';
+    private $curl;
 
     /**
      * Deafault Constructor
