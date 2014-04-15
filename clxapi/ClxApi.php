@@ -4,11 +4,6 @@ require_once 'Clx_Http_Client.php';
 
 class ClxApi {
 
-    /**
-     * The API base URL
-     */
-    const API_URL = '';
-
     private $username = '';
 
     private $password = '';
