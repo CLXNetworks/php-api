@@ -1,11 +1,27 @@
 <?php
 
+require_once 'Clx_Http_Response.php';
+
 class Curl {
 
+    /**
+     * @var string
+     */
     private $username;
 
+    /**
+     * @var string
+     */
     private $password;
 
+    /**
+     * @var string
+     */
+    private $options;
+
+    /** 
+     * Default Constructor
+     */
     public function __construct($username, $password) {
         $this->username = $username;
         $this->password = $password;
@@ -13,18 +29,17 @@ class Curl {
 
     /** 
      * @param  string
+     * @return Clx_Http_Response
      */
     public function get($url) {
 
         $ch = curl_init();
 
-        $options = array(
-                        CURLOPT_URL => $url,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_USERPWD => $this->username . ':' . $this->password
-                        );
+        $this->setOpt(CURLOPT_URL, $this->buildURL($url), $ch);
+        $this->setOpt(CURLOPT_RETURNTRANSFER, true, $ch);
+        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password, $ch);
 
-        curl_setopt_array($ch, $options);
+        curl_setopt_array($ch, $this->options);
 
         return $this->execute($ch);
 
@@ -43,15 +58,51 @@ class Curl {
     }
 
     /**
-     * @param  Object $ch
+     * @param  resource (curl handler)
+     * @return Clx_Http_Response    
      */
-    public function execute($ch) {
+    private function execute($ch) {
 
         $data = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   
+        $error = curl_error($ch);
         curl_close($ch);
 
-        return $data;
+        $response = new Clx_Http_Response($data, $code, $error);
+
+        return $response;
     }
+
+
+
+    /**
+     * @param const
+     * @param mixed
+     * @param resource (curl handler)
+     */
+    public function setOpt($option, $value, $ch) {
+        
+        $this->options[$option] = $value;
+    }
+
+
+    /**
+     * @param  string
+     * @param  array
+     * @return string
+     */
+    public function buildURL($url, $data = array()) {
+
+        if(empty($data)) {
+            return $url;
+        }
+        else {
+            return $url . '?' . http_build_query($data);
+        }
+    }
+
+
+
 
     public function getUsername() {
         return $this->username;
