@@ -1,14 +1,13 @@
 <?php
 
-require_once 'Clx_Http_Client.php';
+require_once 'Clx_Http_Request.php';
 
 class ClxApi {
 
-    private $username;
-
-    private $password;
-
-    private $http_client;
+    /**
+     * @var Clx_Http_Request
+     */
+    private $http_Request;
 
     /**
      * Deafault Constructor
@@ -16,10 +15,8 @@ class ClxApi {
      * @param string
      */
     public function __construct($username, $password) {
-        $this->username = $username;
-        $this->password = $password;
 
-        $this->http_client = new Clx_Http_Client($this->username, $this->password);
+        $this->http_Request = new Clx_Http_Request($username, $password);
     }
 
     /**
@@ -28,7 +25,7 @@ class ClxApi {
      */
     public function getOperators() {
 
-        $HTTPrequest = $this->http_client;
+        $HTTPrequest = $this->http_Request;
         $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator');
         $operators = $HTTPrequest->doRequest('GET');
 
@@ -38,13 +35,13 @@ class ClxApi {
 
     /**
      * Get a specific operator by id
-     * @param  string
+     * @param  int
      */
     public function getOperatorsById($operator_id) {
 
         if(is_numeric($operator_id)) {
 
-            $HTTPrequest = $this->http_client;
+            $HTTPrequest = $this->http_Request;
             $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator/' . $operator_id);
             $operator = $HTTPrequest->doRequest('GET');
 
