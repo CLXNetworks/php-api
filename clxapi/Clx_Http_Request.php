@@ -38,7 +38,7 @@ class Clx_Http_Request {
 
     /**
      * @param  string
-     * @return  Clx_Http_Response
+     * @return Clx_Http_Response
      */
     public function doRequest($method) {
         $request = new Curl($this->username, $this->password);

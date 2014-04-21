@@ -35,9 +35,9 @@ class Curl {
 
         $ch = curl_init();
 
-        $this->setOpt(CURLOPT_URL, $this->buildURL($url), $ch);
-        $this->setOpt(CURLOPT_RETURNTRANSFER, true, $ch);
-        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password, $ch);
+        $this->setOpt(CURLOPT_URL, $this->buildURL($url));
+        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
 
         curl_setopt_array($ch, $this->options);
 
@@ -58,7 +58,7 @@ class Curl {
     }
 
     /**
-     * @param  resource (curl handler)
+     * @param  resource CurlHandler
      * @return Clx_Http_Response    
      */
     private function execute($ch) {
@@ -73,14 +73,11 @@ class Curl {
         return $response;
     }
 
-
-
     /**
      * @param const
      * @param mixed
-     * @param resource (curl handler)
      */
-    public function setOpt($option, $value, $ch) {
+    public function setOpt($option, $value) {
         
         $this->options[$option] = $value;
     }
