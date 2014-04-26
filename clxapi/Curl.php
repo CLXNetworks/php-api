@@ -30,6 +30,7 @@ class Curl {
     /** 
      * @param  string
      * @return Clx_Http_Response
+     * @todo move curl_init to execute method?  
      */
     public function get($url) {
 

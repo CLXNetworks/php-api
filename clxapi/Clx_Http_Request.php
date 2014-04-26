@@ -48,13 +48,13 @@ class Clx_Http_Request {
         $result;
 
         if($method == 'GET') {
-            $result = $request->get($this->uri);
+            //$result = $request->get($this->uri);
             
             /* Only For Test locally*/
-            //$api= new api();
-            //$result = $api->simulateRequest($this->uri);
+            $api= new api();
+            $result = $api->simulateRequest($this->uri);
         }
-        
+
         return new Clx_Http_Response($result['data'], $result['code'], $result['error']);;
     }
 }

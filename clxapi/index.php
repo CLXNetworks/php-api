@@ -9,7 +9,13 @@ $clx = new ClxApi('username', 'password');
  Get an operator by id
  */
 $operator = $clx->getOperatorsById(10);
+
+//Dumps Clx_Http_Response object
 var_dump($operator);
+
+//Dumps a stdClass object
+//var_dump(json_decode($operator->getData()));
+
 
 
 /*

@@ -14,35 +14,13 @@ class CurlTest extends PHPUnit_Framework_TestCase {
         
     }
 
-    public function testUsernameIsSet() {
-
-        $c = $this->curl;
-        $result = $c->getUsername();
-
-        $this->assertEquals('username', $result);
-    }
-
-    public function testPasswordIsSet() {
-
-        $c = $this->curl;
-        $result = $c->getPassword();
-
-        $this->assertEquals('password', $result);
-    }
-
-    public function testUsernameIsString() {
-        $c = $this->curl;
-        $result = $c->getUsername();
-
-        $this->assertInternalType('string', $result);
-    }
-
-    public function testPasswordIsString() {
-        $c = $this->curl;
-        $result = $c->getPassword();
-
-        $this->assertInternalType('string', $result);
-    }
+    //test get
+    
+    //test post
+    
+    //test put
+    
+    //test delete
 
 }
 
