@@ -98,14 +98,4 @@ class Curl {
         }
     }
 
-
-
-
-    public function getUsername() {
-        return $this->username;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
 }
