@@ -2,6 +2,8 @@
 
 require_once 'Curl.php';
 
+require_once '../apitestapplication/api.php';
+
 class Clx_Http_Request {
 
     /**
@@ -43,12 +45,16 @@ class Clx_Http_Request {
     public function doRequest($method) {
         $request = new Curl($this->username, $this->password);
 
-        $result = '';
+        $result;
 
         if($method == 'GET') {
             $result = $request->get($this->uri);
+            
+            /* Only For Test locally*/
+            //$api= new api();
+            //$result = $api->simulateRequest($this->uri);
         }
         
-        return $result;
+        return new Clx_Http_Response($result['data'], $result['code'], $result['error']);;
     }
 }

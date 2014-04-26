@@ -68,7 +68,7 @@ class Curl {
         $error = curl_error($ch);
         curl_close($ch);
 
-        $response = new Clx_Http_Response($data, $code, $error);
+        $response = array('data' => $data, 'code' => $code, 'error' => $error);
 
         return $response;
     }
@@ -77,7 +77,7 @@ class Curl {
      * @param const
      * @param mixed
      */
-    public function setOpt($option, $value) {
+    private function setOpt($option, $value) {
         
         $this->options[$option] = $value;
     }
@@ -88,7 +88,7 @@ class Curl {
      * @param  array
      * @return string
      */
-    public function buildURL($url, $data = array()) {
+    private function buildURL($url, $data = array()) {
 
         if(empty($data)) {
             return $url;
