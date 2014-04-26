@@ -34,15 +34,11 @@ class Curl {
      */
     public function get($url) {
 
-        $ch = curl_init();
-
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
         $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
 
-        curl_setopt_array($ch, $this->options);
-
-        return $this->execute($ch);
+        return $this->execute();
 
     }
 
@@ -62,7 +58,11 @@ class Curl {
      * @param  resource CurlHandler
      * @return Clx_Http_Response    
      */
-    private function execute($ch) {
+    private function execute() {
+
+        $ch = curl_init();
+
+        curl_setopt_array($ch, $this->options);
 
         $data = curl_exec($ch);
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   
