@@ -41,17 +41,21 @@ class Clx_Http_Request {
      * @param  string
      * @return Clx_Http_Response
      */
-    public function doRequest($method) {
+    public function doRequest($method, $data = null) {
         $request = new Curl($this->username, $this->password);
 
         $result;
 
         if($method == 'GET') {
-            //$result = $request->get($this->uri);
+            $result = $request->get($this->uri);
             
             /* Only For Test locally*/
-            $api= new api();
-            $result = $api->simulateRequest($this->uri);
+            //$api= new api();
+            //$result = $api->simulateRequest($this->uri);
+        }
+
+        if($method == 'POST') {
+            $result = $request->post($this->uri, $data);
         }
 
         return new Clx_Http_Response($result['data'], $result['code'], $result['error']);;

@@ -25,6 +25,10 @@ class Curl {
     public function __construct($username, $password) {
         $this->username = $username;
         $this->password = $password;
+
+        // Set the minumum required curl options
+        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
+        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
     }
 
     /** 
@@ -34,15 +38,24 @@ class Curl {
     public function get($url) {
 
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
-        $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
-
         return $this->execute();
-
     }
 
-    public function post() {
+    /** 
+     * @param  string
+     * @param  array
+     * @return array
+     */
+    public function post($url, $data = null) { 
 
+        $this->setOpt(CURLOPT_URL, $this->buildURL($url));
+        $this->setOpt(CURLOPT_POST, true);
+
+        if (!empty($data)) {
+            $this->setOpt(CURLOPT_POSTFIELDS, json_encode($data));
+        }
+        
+        return $this->execute();
     }
 
     public function put() {

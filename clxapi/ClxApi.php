@@ -50,9 +50,7 @@ class ClxApi {
         else {
             throw new Exception("operator_id must be an integer");
         }
-
-        
-
     }
+
 
 }
