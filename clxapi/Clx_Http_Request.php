@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Curl.php';
-
 require_once '../apitestapplication/api.php';
 
 class Clx_Http_Request {

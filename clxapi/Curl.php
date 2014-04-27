@@ -29,8 +29,7 @@ class Curl {
 
     /** 
      * @param  string
-     * @return Clx_Http_Response
-     * @todo move curl_init to execute method?  
+     * @return array
      */
     public function get($url) {
 
@@ -56,7 +55,7 @@ class Curl {
 
     /**
      * @param  resource CurlHandler
-     * @return Clx_Http_Response    
+     * @return array    
      */
     private function execute() {
 
