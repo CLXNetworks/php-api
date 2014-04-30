@@ -3,7 +3,7 @@
 require_once 'ClxApi.php';
 
 $clx = new ClxApi('username', 'password');
-
+$clx->setBaseURI('https://example.com/api');
 
 /*
  Get an operator by id

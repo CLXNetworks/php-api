@@ -5,6 +5,11 @@ require_once 'Clx_Http_Client.php';
 class ClxApi {
 
     /**
+     * @var string
+     */
+    private $baseURI;
+
+    /**
      * @var Clx_Http_Client
      */
     private $http_Client;
@@ -19,6 +24,10 @@ class ClxApi {
         $this->http_Client = new Clx_Http_Client($username, $password);
     }
 
+    public function setBaseURI($url) {
+        $this->baseURI = $url;
+    }
+
     /**
      * Get All Operators
      * /api/operator/
@@ -26,7 +35,7 @@ class ClxApi {
     public function getOperators() {
 
         $HTTPrequest = $this->http_Client;
-        $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator');
+        $HTTPrequest->setURI($this->baseURI . '/operator');
         $operators = $HTTPrequest->request('GET');
 
         return $operators;
@@ -42,7 +51,7 @@ class ClxApi {
         if(is_numeric($operator_id)) {
 
             $HTTPrequest = $this->http_Client;
-            $HTTPrequest->setURI('https://clx-aws.clxnetworks.com/api/operator/' . $operator_id);
+            $HTTPrequest->setURI($this->baseURI . '/operator/' . $operator_id);
             $operator = $HTTPrequest->request('GET');
 
             return $operator;

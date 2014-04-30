@@ -1,8 +1,6 @@
 #TODO
 
-@return, viktigt att ange vad som returneras i varje enskild funktion  
-
-Första delen av uri:n finns duplicerad på flera ställen och bör bara finnas på ett ställe så att det blir lätt att byta ut den.  
+@return, viktigt att ange vad som returneras i varje enskild funktion    
 
 Responsen ska json_decodas och ett standard-object bör returneras.
 
@@ -29,3 +27,6 @@ Döp om "Clx_Http_Request" till "Clx_Http_Client" och funktionen "doRequest" til
 
 
 "curl" är mer logiskt att wrappa in i en adapter som då bör heta Clx_Http_Adapter_Curl istället för "Curl".  
+
+
+Första delen av uri:n finns duplicerad på flera ställen och bör bara finnas på ett ställe så att det blir lätt att byta ut den.   
