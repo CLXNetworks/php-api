@@ -25,7 +25,6 @@ Inser att det är mer logiskt att utgå ifrån en "klient" i modellen alltså n�
 Döp om "Clx_Http_Request" till "Clx_Http_Client" och funktionen "doRequest" till "request"  
 
 
-
 "curl" är mer logiskt att wrappa in i en adapter som då bör heta Clx_Http_Adapter_Curl istället för "Curl".  
 
 
