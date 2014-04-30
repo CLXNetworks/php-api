@@ -2,8 +2,6 @@
 
 @return, viktigt att ange vad som returneras i varje enskild funktion  
 
-"curl" är mer logiskt att wrappa in i en adapter som då bör heta Clx_Http_Adapter_Curl istället för "Curl".  
-
 Första delen av uri:n finns duplicerad på flera ställen och bör bara finnas på ett ställe så att det blir lätt att byta ut den.  
 
 Responsen ska json_decodas och ett standard-object bör returneras.
@@ -26,4 +24,8 @@ Skapa ny test-adapter (Clx_Http_Adapter_Test med samma interface som Clx_Http_Ad
 ##DONE
 
 Inser att det är mer logiskt att utgå ifrån en "klient" i modellen alltså några små förändringar:
-    Döp om "Clx_Http_Request" till "Clx_Http_Client" och funktionen "doRequest" till "request"
+Döp om "Clx_Http_Request" till "Clx_Http_Client" och funktionen "doRequest" till "request"  
+
+
+
+"curl" är mer logiskt att wrappa in i en adapter som då bör heta Clx_Http_Adapter_Curl istället för "Curl".  

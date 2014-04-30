@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Curl.php';
+require_once 'Clx_Http_Adapter_Curl.php';
 require_once '../apitestapplication/api.php';
 
 class Clx_Http_Client {
@@ -42,7 +42,7 @@ class Clx_Http_Client {
      * @return Clx_Http_Response
      */
     public function request($method, $data = null) {
-        $request = new Curl($this->username, $this->password);
+        $request = new Clx_Http_Adapter_Curl($this->username, $this->password);
 
         $result;
 

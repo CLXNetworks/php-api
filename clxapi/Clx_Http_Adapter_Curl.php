@@ -2,7 +2,7 @@
 
 require_once 'Clx_Http_Response.php';
 
-class Curl {
+class Clx_Http_Adapter_Curl {
 
     /**
      * @var string
