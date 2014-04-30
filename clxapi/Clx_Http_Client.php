@@ -3,7 +3,7 @@
 require_once 'Curl.php';
 require_once '../apitestapplication/api.php';
 
-class Clx_Http_Request {
+class Clx_Http_Client {
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class Clx_Http_Request {
      * @param  string
      * @return Clx_Http_Response
      */
-    public function doRequest($method, $data = null) {
+    public function request($method, $data = null) {
         $request = new Curl($this->username, $this->password);
 
         $result;
