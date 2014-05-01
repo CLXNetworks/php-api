@@ -2,7 +2,7 @@
 
 require_once 'Clx_Http_Client.php';
 
-class ClxApi {
+class Clx_Api {
 
     /**
      * @var string

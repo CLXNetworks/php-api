@@ -1,8 +1,8 @@
 <?php
 
-require_once 'ClxApi.php';
+require_once 'Clx_Api.php';
 
-$clx = new ClxApi('username', 'password');
+$clx = new Clx_Api('username', 'password');
 $clx->setBaseURI('https://example.com/api');
 
 /*
