@@ -30,6 +30,8 @@ class Clx_Http_Response {
      * @return string
      */
     public function getData() {
+
+        //Should the json_decode be done here?
         return $this->data;
     }
 
