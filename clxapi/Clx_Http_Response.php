@@ -50,3 +50,5 @@ class Clx_Http_Response {
     }
 
 }
+
+?>

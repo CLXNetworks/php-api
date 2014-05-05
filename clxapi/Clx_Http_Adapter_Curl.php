@@ -26,7 +26,7 @@ class Clx_Http_Adapter_Curl {
         $this->username = $username;
         $this->password = $password;
 
-        // Set the minumum required curl options
+        // Set the minimum required curl options
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
         $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
     }

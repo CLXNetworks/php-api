@@ -23,3 +23,5 @@ class Clx_Http_RequestTest extends PHPUnit_Framework_TestCase {
     }
 
 }
+
+?>

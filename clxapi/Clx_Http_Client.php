@@ -21,10 +21,9 @@ class Clx_Http_Client {
     private $password;
 
     /**
-     * Deafault Constructor
+     * Default Constructor
      * @param string
      * @param string
-     * @return  void
      */
     public function __construct($username, $password) {
         $this->username = $username;
@@ -40,13 +39,14 @@ class Clx_Http_Client {
     }
 
     /**
-     * @param  string
+     * @param  string $method
+     * @param array $data
      * @return Clx_Http_Response
      */
     public function request($method, $data = null) {
         $request = new Clx_Http_Adapter_Curl($this->username, $this->password);
 
-        $result;
+        $result = '';
 
         if($method == 'GET') {
             $result = $request->get($this->uri);
@@ -63,3 +63,5 @@ class Clx_Http_Client {
         return new Clx_Http_Response($result['data'], $result['code'], $result['error']);;
     }
 }
+
+?>

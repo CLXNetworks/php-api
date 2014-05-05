@@ -15,7 +15,7 @@ class Clx_Api {
     private $http_Client;
 
     /**
-     * Deafault Constructor
+     * Default Constructor
      * @param string
      * @param string
      */
@@ -34,25 +34,26 @@ class Clx_Api {
      */
     public function getOperators() {
 
-        $HTTPrequest = $this->http_Client;
-        $HTTPrequest->setURI($this->baseURI . '/operator');
-        $operators = $HTTPrequest->request('GET');
+        $HTTPRequest = $this->http_Client;
+        $HTTPRequest->setURI($this->baseURI . '/operator');
+        $operators = $HTTPRequest->request('GET');
 
         return $operators;
 
     }
-
     /**
      * Get a specific operator by id
      * @param  int
+     * @return operator
+     * @throws Exception
      */
     public function getOperatorsById($operator_id) {
 
         if(is_numeric($operator_id)) {
 
-            $HTTPrequest = $this->http_Client;
-            $HTTPrequest->setURI($this->baseURI . '/operator/' . $operator_id);
-            $operator = $HTTPrequest->request('GET');
+            $HTTPRequest = $this->http_Client;
+            $HTTPRequest->setURI($this->baseURI . '/operator/' . $operator_id);
+            $operator = $HTTPRequest->request('GET');
 
             return $operator;
         } 
@@ -63,3 +64,5 @@ class Clx_Api {
 
 
 }
+
+?>
