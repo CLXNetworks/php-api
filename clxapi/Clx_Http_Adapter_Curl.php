@@ -7,70 +7,70 @@ class Clx_Http_Adapter_Curl {
     /**
      * @var string
      */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var string
-     */
     private $options;
 
     /** 
      * Default Constructor
      */
-    public function __construct($username, $password) {
-        $this->username = $username;
-        $this->password = $password;
+    public function __construct()
+    {
 
         // Set the minimum required curl options
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $this->setOpt(CURLOPT_USERPWD, $this->username . ':' . $this->password);
     }
 
-    /** 
-     * @param  string
-     * @return array
-     */
-    public function get($url) {
+    private function _setAuthOpts( $username, $password )
+    {
+        $this->setOpt( CURLOPT_USERPWD, $username . ':' . $password );
+    }
 
+    public function get( $username, $password, $url )
+    {
+
+        $this->_setAuthOpts( $username, $password );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
+
         return $this->execute();
     }
 
-    /** 
-     * @param  string
-     * @param  array
-     * @return array
+    /**
+     * @todo Not complete
      */
-    public function post($url, $data = null) { 
+    public function post($url, $data = null)
+    {
 
+        $this->_setAuthOpts( $username, $password );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
         $this->setOpt(CURLOPT_POST, true);
 
         if (!empty($data)) {
             $this->setOpt(CURLOPT_POSTFIELDS, json_encode($data));
         }
-        
+
         return $this->execute();
     }
 
-    public function put() {
-
-    }
-
-    public function delete() {
-
+    /**
+     * @todo Not complete
+     */
+    public function put()
+    {
+        $this->_setAuthOpts( $username, $password );
     }
 
     /**
-     * @param  resource CurlHandler
-     * @return array    
+     * @todo Not complete
      */
-    private function execute() {
+    public function delete()
+    {
+        $this->_setAuthOpts( $username, $password );
+    }
+
+    /**
+     * @return Clx_Http_Response
+     */
+    private function execute()
+    {
 
         $ch = curl_init();
 
@@ -81,17 +81,16 @@ class Clx_Http_Adapter_Curl {
         $error = curl_error($ch);
         curl_close($ch);
 
-        $response = array('data' => $data, 'code' => $code, 'error' => $error);
-
-        return $response;
+        require_once 'Clx_Http_Response.php';
+        return new Clx_Http_Response( $data, $code, $error );
     }
 
     /**
      * @param const
      * @param mixed
      */
-    private function setOpt($option, $value) {
-        
+    private function setOpt($option, $value)
+    {
         $this->options[$option] = $value;
     }
 
@@ -101,12 +100,15 @@ class Clx_Http_Adapter_Curl {
      * @param  array
      * @return string
      */
-    private function buildURL($url, $data = array()) {
+    private function buildURL($url, $data = array())
+    {
 
-        if(empty($data)) {
+        if(empty($data))
+        {
             return $url;
         }
-        else {
+        else
+        {
             return $url . '?' . http_build_query($data);
         }
     }

@@ -20,7 +20,8 @@ class Clx_Http_Response {
     /** 
      * Default Constructor
      */
-    public function __construct($data, $code, $error) {
+    public function __construct($data, $code, $error)
+    {
         $this->data = $data;
         $this->code = $code;
         $this->error = $error;
@@ -29,24 +30,38 @@ class Clx_Http_Response {
     /**
      * @return string
      */
-    public function getData() {
+    public function getData()
+    {
 
         //Should the json_decode be done here?
         return $this->data;
     }
 
+    public function getBody()
+    {
+
+    }
+
     /**
      * @return int
      */
-    public function getStatusCode() {
+    public function getStatusCode()
+    {
         return $this->code;
     }
 
     /**
      * @return string
      */
-    public function getError() {
+    public function getError()
+    {
         return $this->error;
+    }
+
+    public static function generateResponse( array $result )
+    {
+        //Felkontroll
+        return new Clx_Http_Response( $result['data'], $result['code'], $result['error'] );
     }
 
 }
