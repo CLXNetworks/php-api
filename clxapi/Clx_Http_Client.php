@@ -106,12 +106,12 @@ class Clx_Http_Client {
 
         if($method == 'GET')
         {
-            return $httpAdapter->get( $username, $password, $uri);
+            return $httpAdapter->get( $username, $password, $uri );
         }
 
         if($method == 'POST')
         {
-            return $httpAdapter->post($uri, $data);
+            return $httpAdapter->post( $uri, $data );
         }
     }
 

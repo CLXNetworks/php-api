@@ -14,11 +14,14 @@ class Clx_Http_Adapter_Curl {
      */
     public function __construct()
     {
-
         // Set the minimum required curl options
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     */
     private function _setAuthOpts( $username, $password )
     {
         $this->setOpt( CURLOPT_USERPWD, $username . ':' . $password );
@@ -26,7 +29,6 @@ class Clx_Http_Adapter_Curl {
 
     public function get( $username, $password, $url )
     {
-
         $this->_setAuthOpts( $username, $password );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
 
@@ -38,7 +40,6 @@ class Clx_Http_Adapter_Curl {
      */
     public function post($url, $data = null)
     {
-
         $this->_setAuthOpts( $username, $password );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
         $this->setOpt(CURLOPT_POST, true);
@@ -71,7 +72,6 @@ class Clx_Http_Adapter_Curl {
      */
     private function execute()
     {
-
         $ch = curl_init();
 
         curl_setopt_array($ch, $this->options);
@@ -94,7 +94,6 @@ class Clx_Http_Adapter_Curl {
         $this->options[$option] = $value;
     }
 
-
     /**
      * @param  string
      * @param  array
@@ -102,7 +101,6 @@ class Clx_Http_Adapter_Curl {
      */
     private function buildURL($url, $data = array())
     {
-
         if(empty($data))
         {
             return $url;

@@ -2,7 +2,6 @@
 
 interface Clx_Http_Adapter_Interface
 {
-
     /**
      * @param string $username
      * @param string $password
