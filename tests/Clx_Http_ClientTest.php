@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../clxapi/Clx_Http_Client.php';
 
-class Clx_Http_RequestTest extends PHPUnit_Framework_TestCase {
+class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
 
     private $Clx_Http_Client;
 
@@ -18,9 +18,41 @@ class Clx_Http_RequestTest extends PHPUnit_Framework_TestCase {
 
     //test construct
 
+
+
+    //test setUsername
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testSetUsernameThrowsClx_ExceptionIfNotString() {
+        $this->Clx_Http_Client->setUsername( 1 );
+    }
+
+    //test setPassword
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testSetPasswordThrowsClx_ExceptionIfNotString() {
+        $this->Clx_Http_Client->setPassword( 1 );
+    }
+
+
+
+    //test setHttpAdapter
+
+
+
+
     //test setURI
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testSetURIThrowsClx_ExceptionIfNotString() {
+        $this->Clx_Http_Client->setURI( 1 );
+    }
 
 
+    //test request
     public function testRequestReturnClx_Http_responseObject() {
 
         $response = $this->Clx_Http_Client->request( 'GET' );

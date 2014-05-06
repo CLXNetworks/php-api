@@ -34,7 +34,7 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
 
     }
 
-    public function post($url, $data = null)
+    public function post( $username, $password, $url, $data = null )
     {
 
     }
