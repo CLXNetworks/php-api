@@ -30,8 +30,42 @@ class Clx_Http_Client {
      * @param string
      */
     public function __construct($username, $password) {
-        $this->username = $username;
-        $this->password = $password;
+        $this->setUsername( $username );
+        $this->setPassword( $password );
+    }
+
+    /**
+     * @param string $username
+     * @throws Clx_Exception
+     */
+    public function setUsername( $username ) {
+
+        if( is_string( $username ) )
+        {
+            $this->username = $username;
+        }
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Username must be of type String!' );
+        }
+    }
+
+    /**
+     * @param string $password
+     * @throws Clx_Exception
+     */
+    public function setPassword( $password ) {
+
+        if( is_string( $password ) )
+        {
+            $this->password = $password;
+        }
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Password must be of type String!' );
+        }
     }
 
     /**
@@ -77,10 +111,21 @@ class Clx_Http_Client {
 
     /**
      * @param string
-     * @return  void 
+     * @throws Clx_Exception
+     * @return  void
      */
     public function setURI($uri) {
-        $this->uri = $uri;
+
+        if( is_string( $uri ) )
+        {
+            $this->uri = $uri;
+        }
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Uri must be of type String!' );
+        }
+
     }
 
     /**
@@ -96,7 +141,7 @@ class Clx_Http_Client {
      * @param array $data
      * @return Clx_Http_Response
      */
-    public function request($method, $data = null) {
+    public function request($method, $data = array() ) {
 
         $httpAdapter = $this->_getHttpAdapter();
         $username = $this->_getUsername();
@@ -111,7 +156,7 @@ class Clx_Http_Client {
 
         if($method == 'POST')
         {
-            return $httpAdapter->post( $uri, $data );
+            return $httpAdapter->post( $username, $password, $uri, $data );
         }
     }
 

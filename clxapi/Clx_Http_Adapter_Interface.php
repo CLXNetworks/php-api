@@ -11,11 +11,13 @@ interface Clx_Http_Adapter_Interface
     public function get( $username, $password, $url );
 
     /**
+     * @param string $username
+     * @param string $password
      * @param string $url
      * @param array $data
      * @return array
      */
-    public function post( $url, $data = null );
+    public function post( $username, $password, $url, $data = null );
 
     public function put();
 

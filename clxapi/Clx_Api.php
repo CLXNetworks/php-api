@@ -2,7 +2,8 @@
 
 require_once 'Clx_Http_Client.php';
 
-class Clx_Api {
+class Clx_Api extends Clx_Http_Client{
+
 
     /**
      * @var string
@@ -10,55 +11,68 @@ class Clx_Api {
     private $baseURI;
 
     /**
-     * @var Clx_Http_Client
-     */
-    private $http_Client;
-
-    /**
      * Default Constructor
      * @param string
      * @param string
      */
-    public function __construct($username, $password) {
-
-        $this->http_Client = new Clx_Http_Client($username, $password);
+    public function __construct( $config )
+    {
+        parent::__construct( $config['username'], $config['password'] );
+        parent::setHttpAdapter( $config['httpAdapter'] );
+        $this->setBaseURI ( $config['baseURL'] );
     }
 
-    public function setBaseURI($url) {
-        $this->baseURI = $url;
+
+    /**
+     * @param string $url
+     * @throws Clx_Exception
+     */
+    public function setBaseURI( $url )
+    {
+        if( is_string( $url ) )
+        {
+            $this->baseURI = $url;
+        }
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'URL must be of type String!' );
+        }
+
     }
 
     /**
      * Get All Operators
      * /api/operator/
      */
-    public function getOperators() {
-
-        $HTTPRequest = $this->http_Client;
-        $HTTPRequest->setURI($this->baseURI . '/operator');
-        $operators = $HTTPRequest->request('GET');
+    public function getOperators()
+    {
+        parent::setURI( $this->baseURI . '/operator' );
+        $operators = parent::request( 'GET' );
 
         return $operators;
-
     }
+
     /**
      * Get a specific operator by id
      * @param  int
      * @return operator
      * @throws Exception
      */
-    public function getOperatorsById($operator_id) {
+    public function getOperatorById( $operator_id )
+    {
 
-        if(is_numeric($operator_id)) {
-
-            $HTTPRequest = $this->http_Client;
-            $HTTPRequest->setURI($this->baseURI . '/operator/' . $operator_id);
-            $operator = $HTTPRequest->request('GET');
+        if( is_numeric( $operator_id ) )
+        {
+            parent::setURI( $this->baseURI . '/operator/' . $operator_id) ;
+            $operator = parent::request( 'GET' );
 
             return $operator;
         } 
-        else {
-            throw new Exception("operator_id must be an integer");
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Operator_id must be an integer!' );
         }
     }
 

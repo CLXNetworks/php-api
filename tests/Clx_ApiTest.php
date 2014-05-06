@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../clxapi/ClxApi.php';
+require_once __DIR__ . '/../clxapi/Clx_Api.php';
 
 class ClxApiTest extends PHPUnit_Framework_TestCase {
 

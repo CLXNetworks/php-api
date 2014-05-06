@@ -1,8 +1,8 @@
 <?php
 
-require_once 'Clx_Http_Response.php';
+require_once __DIR__ . '/../clxapi/Clx_Http_Adapter_Interface.php';
 
-class Clx_Http_Adapter_Curl {
+class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class Clx_Http_Adapter_Curl {
     /**
      * @todo Not complete
      */
-    public function post($url, $data = null)
+    public function post( $username, $password, $url, $data = null )
     {
         $this->_setAuthOpts( $username, $password );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
