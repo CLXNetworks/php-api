@@ -5,7 +5,12 @@ class Clx_Http_Response {
     /**
      * @var string
      */
-    private $data;
+    private $body;
+
+    /**
+     * @var string
+     */
+    private $headers;
 
     /**
      * @var int
@@ -20,9 +25,10 @@ class Clx_Http_Response {
     /** 
      * Default Constructor
      */
-    public function __construct($data, $code, $error)
+    public function __construct($body, $headers, $code, $error)
     {
-        $this->data = $data;
+        $this->body = $body;
+        $this->headers = $headers;
         $this->code = $code;
         $this->error = $error;
     }
@@ -30,16 +36,18 @@ class Clx_Http_Response {
     /**
      * @return string
      */
-    public function getData()
-    {
-
-        //Should the json_decode be done here?
-        return $this->data;
-    }
-
     public function getBody()
     {
+        return $this->body;
+    }
 
+    /**
+     * @return string
+     * @TODO parse headers
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**
@@ -60,8 +68,30 @@ class Clx_Http_Response {
 
     public static function generateResponse( array $result )
     {
-        //Felkontroll
-        return new Clx_Http_Response( $result['data'], $result['code'], $result['error'] );
+
+        require_once 'Clx_Exception.php';
+
+        if( !is_string( $result['body'] ) )
+        {
+            throw new Clx_Exception( '$result["body"] "is not of type string!' );
+        }
+
+        if( !is_string( $result['headers'] ) )
+        {
+            throw new Clx_Exception( '$result["headers"] "is not of type string!' );
+        }
+
+        if( !is_integer( $result['code'] ) )
+        {
+            throw new Clx_Exception( '$result["code"] "is not of type string!' );
+        }
+
+        if( !is_string( $result['error'] ) )
+        {
+            throw new Clx_Exception( '$result["error"] "is not of type string!' );
+        }
+
+        return new Clx_Http_Response( $result['body'], $result['headers'], $result['code'], $result['error'] );
     }
 
 }

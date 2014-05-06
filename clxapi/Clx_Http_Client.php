@@ -139,9 +139,23 @@ class Clx_Http_Client {
     /**
      * @param  string $method
      * @param array $data
+     * @throws Clx_Exception
      * @return Clx_Http_Response
      */
     public function request($method, $data = array() ) {
+
+
+        if( !is_string( $method ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( '$method must be of type String!' );
+        }
+
+        if( !is_array( $data ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( '$data must be of type Array!' );
+        }
 
         $httpAdapter = $this->_getHttpAdapter();
         $username = $this->_getUsername();
