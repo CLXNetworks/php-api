@@ -24,7 +24,7 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Clx_Exception
      */
-    public function testSetUsernameThrowsClx_ExceptionIfNotString() {
+    public function testSetUsernameThrowsClx_ExceptionIfParamIsNotString() {
         $this->Clx_Http_Client->setUsername( 1 );
     }
 
@@ -32,7 +32,7 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Clx_Exception
      */
-    public function testSetPasswordThrowsClx_ExceptionIfNotString() {
+    public function testSetPasswordThrowsClx_ExceptionIfParamIsNotString() {
         $this->Clx_Http_Client->setPassword( 1 );
     }
 
@@ -47,12 +47,22 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Clx_Exception
      */
-    public function testSetURIThrowsClx_ExceptionIfNotString() {
+    public function testSetURIThrowsClx_ExceptionIfParamIsNotString() {
         $this->Clx_Http_Client->setURI( 1 );
     }
 
 
     //test request
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testRequestThrowsClx_ExceptionIfMethodParamIsNotString()
+    {
+        $this->Clx_Http_Client->request( 1 );
+    }
+
+
     public function testRequestReturnClx_Http_responseObject() {
 
         $response = $this->Clx_Http_Client->request( 'GET' );

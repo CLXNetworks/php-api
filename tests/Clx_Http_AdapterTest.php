@@ -6,7 +6,7 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
 {
 
     private $_responseArray = array(
-        'https://clx-aws.clxnetworks.com/api/operator/10' => array( 'data' => '{    "id": 10,
+        'https://clx-aws.clxnetworks.com/api/operator/10' => array( 'body' => '{    "id": 10,
                                                                                     "name": "test name",
                                                                                     "network": "networkname",
                                                                                     "uniqueName": "uniquename",
@@ -15,6 +15,10 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
                                                                                     "operationalStatDate": "-0001-11-30 00:00:00",
                                                                                     "numberOfSubscribers": 0
                                                                                }',
+                                                                    'headers' => "GET /api/operator/10 HTTP/1.1
+                                                                                  Authorization: Basic xxxxxxxxxxxxxxxxxxxxxxxx==
+                                                                                  Host: clx-aws.clxnetworks.com
+                                                                                  Accept: */*",
                                                                     'code' => 200,
                                                                     'error' => ''));
 
