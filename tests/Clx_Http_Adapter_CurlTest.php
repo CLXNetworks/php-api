@@ -2,7 +2,15 @@
 
 class Clx_Http_Adapter_CurlTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp() {
 
+    }
+
+    //test construct
+    public function testConstruct()
+    {
+
+    }
 }
 
 ?>

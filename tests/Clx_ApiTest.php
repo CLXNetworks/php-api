@@ -38,10 +38,42 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
 
     //test getOperators
 
+    /**
+     * @todo Should i test assertEquals on ex getBody, getHeaders to?
+     */
+    public function testGetOperatorsReturnClx_Http_ResponseObject()
+    {
+        $response = $this->Clx_Api->getOperators();
+
+        if( $response instanceof Clx_Http_Response )
+        {
+            $this->assertEquals( 200, $response->getStatusCode() );
+        }
+        else
+        {
+            $this->fail( 'Expected Clx_Http_Response, got something else!' );
+        }
+    }
+
 
 
 
     //test getOperatorsById
+    public function testGetOperatorsByIdReturnClx_Http_ResponseObject()
+    {
+        $response = $this->Clx_Api->getOperatorById( 10 );
+
+        if( $response instanceof Clx_Http_Response )
+        {
+            $this->assertEquals( 200, $response->getStatusCode() );
+        }
+        else
+        {
+            $this->fail( 'Expected Clx_Http_Response, got something else!' );
+        }
+    }
+
+
     /**
      * @expectedException Clx_Exception
      */

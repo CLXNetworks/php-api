@@ -27,10 +27,25 @@ class Clx_Http_Response {
      */
     public function __construct($body, $headers, $code, $error)
     {
-        $this->body = $body;
-        $this->headers = $headers;
-        $this->code = $code;
-        $this->error = $error;
+        $this->_setbody( $body );
+        $this->_setHeaders( $headers );
+        $this->_setCode( $code );
+        $this->_setError( $error );
+    }
+
+    /**
+     * @param string $body
+     * @throws Clx_Exception
+     */
+    private function _setBody( $body )
+    {
+        if( !is_string( $body ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'body is not of type string!' );
+        }
+
+        $this->$body = $body;
     }
 
     /**
@@ -39,6 +54,21 @@ class Clx_Http_Response {
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @param string $headers
+     * @throws Clx_Exception
+     */
+    private function _setHeaders( $headers )
+    {
+        if( !is_string( $headers ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'headers is not of type string!' );
+        }
+
+        $this->headers = $headers;
     }
 
     /**
@@ -51,11 +81,41 @@ class Clx_Http_Response {
     }
 
     /**
+     * @param string $code
+     * @throws Clx_Exception
+     */
+    private function _setCode( $code )
+    {
+        if( !is_integer( $code ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'code is not of type string!' );
+        }
+
+        $this->code = $code;
+    }
+
+    /**
      * @return int
      */
     public function getStatusCode()
     {
         return $this->code;
+    }
+
+    /**
+     * @param string $error
+     * @throws Clx_Exception
+     */
+    private function _setError( $error )
+    {
+        if( !is_string( $error ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'error is not of type string!' );
+        }
+
+        $this->error = $error;
     }
 
     /**
@@ -68,29 +128,6 @@ class Clx_Http_Response {
 
     public static function generateResponse( array $result )
     {
-
-        require_once 'Clx_Exception.php';
-
-        if( !is_string( $result['body'] ) )
-        {
-            throw new Clx_Exception( '$result["body"] "is not of type string!' );
-        }
-
-        if( !is_string( $result['headers'] ) )
-        {
-            throw new Clx_Exception( '$result["headers"] "is not of type string!' );
-        }
-
-        if( !is_integer( $result['code'] ) )
-        {
-            throw new Clx_Exception( '$result["code"] "is not of type string!' );
-        }
-
-        if( !is_string( $result['error'] ) )
-        {
-            throw new Clx_Exception( '$result["error"] "is not of type string!' );
-        }
-
         return new Clx_Http_Response( $result['body'], $result['headers'], $result['code'], $result['error'] );
     }
 
