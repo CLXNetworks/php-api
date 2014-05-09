@@ -16,9 +16,10 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
 
     }
 
-    //test construct
-
-
+    public function testInstance()
+    {
+        $this->assertInstanceOf('Clx_Http_Client', $this->Clx_Http_Client);
+    }
 
     //test setUsername
     /**
@@ -40,6 +41,15 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
 
     //test setHttpAdapter
 
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testSetHttpAdapterThrowsClx_ExceptionIfHttpAdapterIsAlreadySet()
+    {
+        $httpAdapter = new Clx_Http_AdapterTest();
+        $this->Clx_Http_Client->setHttpAdapter( $httpAdapter );
+
+    }
 
 
 
