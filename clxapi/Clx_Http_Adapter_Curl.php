@@ -75,7 +75,7 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
     {
         $ch = curl_init();
 
-        curl_setopt_array($ch, $this->options);
+        curl_setopt_array($ch, $this->getOpt());
 
         $body = curl_exec($ch);
         $headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
@@ -91,11 +91,19 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
     /**
      * @param const
-     * @param mixed
+     * @param mixed $value
      */
     private function setOpt($option, $value)
     {
         $this->options[$option] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    private function getOpt()
+    {
+        return $this->options;
     }
 
     /**
