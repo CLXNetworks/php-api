@@ -12,8 +12,7 @@ class Clx_Api extends Clx_Http_Client{
 
     /**
      * Default Constructor
-     * @param string
-     * @param string
+     * @param array
      */
     public function __construct( $config )
     {
@@ -38,7 +37,14 @@ class Clx_Api extends Clx_Http_Client{
             require_once 'Clx_Exception.php';
             throw new Clx_Exception( 'URL must be of type String!' );
         }
+    }
 
+    /**
+     * @return string
+     */
+    private function _getBaseURI()
+    {
+        return $this->baseURI;
     }
 
     /**
@@ -47,7 +53,7 @@ class Clx_Api extends Clx_Http_Client{
      */
     public function getOperators()
     {
-        parent::setURI( $this->baseURI . '/operator' );
+        parent::setURI( $this->_getBaseURI() . '/operator' );
         $operators = parent::request( 'GET' );
 
         return $operators;
@@ -64,7 +70,7 @@ class Clx_Api extends Clx_Http_Client{
 
         if( is_numeric( $operator_id ) )
         {
-            parent::setURI( $this->baseURI . '/operator/' . $operator_id) ;
+            parent::setURI( $this->_getBaseURI() . '/operator/' . $operator_id) ;
             $operator = parent::request( 'GET' );
 
             return $operator;
