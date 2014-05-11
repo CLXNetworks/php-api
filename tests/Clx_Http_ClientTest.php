@@ -61,6 +61,14 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Http_Client->request( 1 );
     }
 
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testRequestThrowsClx_ExceptionIfDataParamIsNotArray()
+    {
+        $this->Clx_Http_Client->request( 'GET', 'notAnArray' );
+    }
+
 
     public function testRequestReturnClx_Http_responseObject() {
 
