@@ -79,14 +79,14 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
         $body = curl_exec($ch);
         $headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
 
 
         curl_close($ch);
 
         require_once 'Clx_Http_Response.php';
-        return new Clx_Http_Response( $body, $headers, $code, $error );
+        return new Clx_Http_Response( $body, $headers, $statusCode, $error );
     }
 
     /**

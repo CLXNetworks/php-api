@@ -125,7 +125,6 @@ class Clx_Http_Client {
             require_once 'Clx_Exception.php';
             throw new Clx_Exception( 'Uri must be of type String!' );
         }
-
     }
 
     /**

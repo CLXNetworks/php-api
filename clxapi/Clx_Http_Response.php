@@ -15,7 +15,7 @@ class Clx_Http_Response {
     /**
      * @var int
      */
-    private $code;
+    private $statusCode;
 
     /**
      * @var string
@@ -25,11 +25,11 @@ class Clx_Http_Response {
     /** 
      * Default Constructor
      */
-    public function __construct($body, $headers, $code, $error)
+    public function __construct($body, $headers, $statusCode, $error)
     {
         $this->_setbody( $body );
         $this->_setHeaders( $headers );
-        $this->_setCode( $code );
+        $this->_setStatusCode( $statusCode );
         $this->_setError( $error );
     }
 
@@ -81,18 +81,18 @@ class Clx_Http_Response {
     }
 
     /**
-     * @param string $code
+     * @param string $statusCode
      * @throws Clx_Exception
      */
-    private function _setCode( $code )
+    private function _setStatusCode( $statusCode )
     {
-        if( !is_integer( $code ) )
+        if( !is_integer( $statusCode ) )
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'code is not of type string!' );
+            throw new Clx_Exception( 'statusCode is not of type string!' );
         }
 
-        $this->code = $code;
+        $this->statusCode = $statusCode;
     }
 
     /**
@@ -100,7 +100,7 @@ class Clx_Http_Response {
      */
     public function getStatusCode()
     {
-        return $this->code;
+        return $this->statusCode;
     }
 
     /**
@@ -128,7 +128,7 @@ class Clx_Http_Response {
 
     public static function generateResponse( array $result )
     {
-        return new Clx_Http_Response( $result['body'], $result['headers'], $result['code'], $result['error'] );
+        return new Clx_Http_Response( $result['body'], $result['headers'], $result['statusCode'], $result['error'] );
     }
 
 }
