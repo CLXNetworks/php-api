@@ -17,7 +17,7 @@ public static  $responseArray = array(
                                                                                                     Authorization: Basic xxxxxxxxxxxxxxxxxxxxxxxx==
                                                                                                     Host: clx-aws.clxnetworks.com
                                                                                                     Accept: */*",
-                                                                                    'code' => 200,
+                                                                                    'statusCode' => 200,
                                                                                     'error' => ''),
 
                         'https://clx-aws.clxnetworks.com/api/operator' => array( 'body' => '{       "id": 10,
@@ -33,7 +33,7 @@ public static  $responseArray = array(
                                                                                                     Authorization: Basic xxxxxxxxxxxxxxxxxxxxxxxx==
                                                                                                     Host: clx-aws.clxnetworks.com
                                                                                                     Accept: */*",
-                                                                                    'code' => 200,
+                                                                                    'statusCode' => 200,
                                                                                     'error' => '')
 
 

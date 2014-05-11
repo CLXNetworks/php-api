@@ -21,12 +21,13 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Api = new Clx_Api( $config );
     }
 
-    //test construct
+
+    public function testInstance()
+    {
+        $this->assertInstanceOf('Clx_Api', $this->Clx_Api);
+    }
 
 
-
-
-    //test setBaseURI
     /**
      * @expectedException Clx_Exception
      */
@@ -35,8 +36,6 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Api->setBaseURI( 1 );
     }
 
-
-    //test getOperators
 
     /**
      * @todo Should i test assertEquals on ex getBody, getHeaders to?
@@ -56,9 +55,6 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
-
-
-    //test getOperatorsById
     public function testGetOperatorsByIdReturnClx_Http_ResponseObject()
     {
         $response = $this->Clx_Api->getOperatorById( 10 );

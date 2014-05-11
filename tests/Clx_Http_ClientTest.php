@@ -21,7 +21,6 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('Clx_Http_Client', $this->Clx_Http_Client);
     }
 
-    //test setUsername
     /**
      * @expectedException Clx_Exception
      */
@@ -29,17 +28,12 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Http_Client->setUsername( 1 );
     }
 
-    //test setPassword
     /**
      * @expectedException Clx_Exception
      */
     public function testSetPasswordThrowsClx_ExceptionIfParamIsNotString() {
         $this->Clx_Http_Client->setPassword( 1 );
     }
-
-
-
-    //test setHttpAdapter
 
     /**
      * @expectedException Clx_Exception
@@ -51,9 +45,6 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
 
     }
 
-
-
-    //test setURI
     /**
      * @expectedException Clx_Exception
      */
@@ -61,8 +52,6 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Http_Client->setURI( 1 );
     }
 
-
-    //test request
 
     /**
      * @expectedException Clx_Exception
