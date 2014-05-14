@@ -9,15 +9,12 @@ class Clx_Http_Client {
      */
     private $uri;
 
-    /**
-     * @var string
-     */
-    private $username;
 
     /**
-     * @var string
+     * @var array|null
      */
-    private $password;
+    private $auth;
+
 
     /**
      * @var Clx_Http_Adapter_Interface
@@ -26,63 +23,46 @@ class Clx_Http_Client {
 
     /**
      * Default Constructor
-     * @param string
-     * @param string
      */
-    public function __construct($username, $password) {
-        $this->setUsername( $username );
-        $this->setPassword( $password );
+    public function __construct() {
+
     }
 
     /**
      * @param string $username
-     * @throws Clx_Exception
-     */
-    public function setUsername( $username ) {
-
-        if( is_string( $username ) )
-        {
-            $this->username = $username;
-        }
-        else
-        {
-            require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'Username must be of type String!' );
-        }
-    }
-
-    /**
      * @param string $password
      * @throws Clx_Exception
      */
-    public function setPassword( $password ) {
-
-        if( is_string( $password ) )
+    public function setAuth( $username, $password )
+    {
+        if ($username === false || $username === null)
         {
-            $this->password = $password;
+            $this->auth = null;
         }
         else
         {
-            require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'Password must be of type String!' );
+            if (!is_string( $username ) || !is_string( $password ))
+            {
+                require_once 'Clx_Exception.php';
+                throw new Clx_Exception( 'Username and Password must be of type string!' );
+            }
+
+            $this->auth = array(
+                'username'  =>  $username,
+                'password'  =>  $password
+            );
         }
     }
 
     /**
-     * @return string
+     * @return array|null
      */
-    private function _getUsername()
+    public function _getAuth()
     {
-        return $this->username;
+        return $this->auth;
     }
 
-    /**
-     * @return string
-     */
-    private function _getPassword()
-    {
-        return $this->password;
-    }
+
 
     /**
      * @param Clx_Http_Adapter_Interface $httpAdapter
@@ -157,19 +137,18 @@ class Clx_Http_Client {
         }
 
         $httpAdapter = $this->_getHttpAdapter();
-        $username = $this->_getUsername();
-        $password = $this->_getPassword();
+        $auth = $this->_getAuth();
         $uri = $this->_getURI();
 
 
         if($method == 'GET')
         {
-            return $httpAdapter->get( $username, $password, $uri );
+            return $httpAdapter->get( $auth, $uri );
         }
 
         if($method == 'POST')
         {
-            return $httpAdapter->post( $username, $password, $uri, $data );
+            return $httpAdapter->post( $auth, $uri, $data );
         }
     }
 
