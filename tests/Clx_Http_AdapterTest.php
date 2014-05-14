@@ -15,7 +15,7 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
 
 
 
-    public function get( $username, $password, $url )
+    public function get( $auth, $url )
     {
         if( array_key_exists( $url, $this->_responseArray ) )
         {
@@ -29,7 +29,7 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
 
     }
 
-    public function post( $username, $password, $url, $data = null )
+    public function post( $auth, $url, $data = null )
     {
 
     }

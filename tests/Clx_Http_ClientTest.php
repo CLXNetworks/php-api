@@ -24,16 +24,11 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Clx_Exception
      */
-    public function testSetUsernameThrowsClx_ExceptionIfParamIsNotString() {
-        $this->Clx_Http_Client->setUsername( 1 );
+    public function testSetAuthThrowsClx_ExceptionIfParamIsNotString() {
+        $this->Clx_Http_Client->setAuth( 1, 2 );
     }
 
-    /**
-     * @expectedException Clx_Exception
-     */
-    public function testSetPasswordThrowsClx_ExceptionIfParamIsNotString() {
-        $this->Clx_Http_Client->setPassword( 1 );
-    }
+
 
     /**
      * @expectedException Clx_Exception

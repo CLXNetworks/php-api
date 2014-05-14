@@ -15,46 +15,46 @@ class Clx_Http_ResponseTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Http_Response = new Clx_Http_Response( $body, $headers, $statusCode, $error );
     }
 
-    //test construct
-    public function testConstruct()
+
+    public function testValidConstruct()
     {
-        $body = 'body';
-        $headers = 'headers';
-        $statusCode = 200;
-        $error = 'error';
-
-        $Clx_Http_Response = new Clx_Http_Response( $body, $headers, $statusCode, $error );
-
-        $this->assertInstanceOf('Clx_Http_Response', $Clx_Http_Response);
-        $this->assertEquals( $body, $Clx_Http_Response->getBody() );
-        $this->assertEquals( $headers, $Clx_Http_Response->getHeaders() );
-        $this->assertEquals( $statusCode, $Clx_Http_Response->getStatusCode() );
-        $this->assertEquals( $error, $Clx_Http_Response->getError() );
-    }
-
-
-    public function testGetBody()
-    {
+        $this->assertInstanceOf('Clx_Http_Response', $this->Clx_Http_Response);
         $this->assertEquals( 'body', $this->Clx_Http_Response->getBody() );
-    }
-
-    public function testGetHeaders()
-    {
         $this->assertEquals( 'headers', $this->Clx_Http_Response->getHeaders() );
-    }
-
-    public function testGetStatusCode()
-    {
-        $this->assertEquals( '200', $this->Clx_Http_Response->getStatusCode() );
-    }
-
-    public function testGetError()
-    {
+        $this->assertEquals( 200, $this->Clx_Http_Response->getStatusCode() );
         $this->assertEquals( 'error', $this->Clx_Http_Response->getError() );
     }
 
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testFaultyValueBodyConstructThrowsIfNotString()
+    {
+        new Clx_Http_Response( 1, 'headers', 200, 'error' );
+    }
 
-    //test generateResponse
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testFaultyValueHeadersConstructThrowsIfNotString()
+    {
+        new Clx_Http_Response( 'body', 1, 200, 'error' );
+    }
 
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testFaultyValueStatusCodeConstructThrowsIfNotInteger()
+    {
+        new Clx_Http_Response( 'body', 'headers', '200', 'error' );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testFaultyValueErrorConstructThrowsIfNotString()
+    {
+        new Clx_Http_Response( 'body', 'headers', 200, 1 );
+    }
 
 }

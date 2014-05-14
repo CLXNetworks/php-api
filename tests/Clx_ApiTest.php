@@ -8,21 +8,20 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
-        $httpAdapter = new Clx_Http_AdapterTest();
 
         $config = array(
             'username' => 'username',
-            'password'=> 'password',
-            'baseURL' => 'https://clx-aws.clxnetworks.com/api',
-            'httpAdapter' => $httpAdapter
+            'password'=> 'password'
         );
 
+        $httpAdapter = new Clx_Http_AdapterTest();
+        $this->Clx_Api = new Clx_Api( $config, $httpAdapter );
+        $this->Clx_Api->setBaseURI('https://clx-aws.clxnetworks.com/api');
 
-        $this->Clx_Api = new Clx_Api( $config );
     }
 
 
-    public function testInstance()
+    public function testValidConstruct()
     {
         $this->assertInstanceOf('Clx_Api', $this->Clx_Api);
     }
@@ -31,17 +30,26 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Clx_Exception
      */
-    public function testSetBaseURIThrowsClx_ExceptionIfNotString()
+    public function testSetBaseURIThrowsIfNotString()
     {
         $this->Clx_Api->setBaseURI( 1 );
     }
 
 
     /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetOperatorsByIdThrowsIfNotInteger()
+    {
+        $this->Clx_Api->getOperatorById( 'string' );
+    }
+
+    /**
      * @todo Should i test assertEquals on ex getBody, getHeaders to?
      */
     public function testGetOperatorsReturnClx_Http_ResponseObject()
     {
+
         $response = $this->Clx_Api->getOperators();
 
         if( $response instanceof Clx_Http_Response )
@@ -70,13 +78,5 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    /**
-     * @expectedException Clx_Exception
-     */
-    public function testGetOperatorsByIdThrowsClx_ExceptionIfNotInteger()
-    {
-        $this->Clx_Api->getOperatorById( 'string' );
-    }
-    
 
 }
