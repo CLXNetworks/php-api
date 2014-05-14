@@ -27,10 +27,12 @@ class Clx_Http_Response {
      */
     public function __construct($body, $headers, $statusCode, $error)
     {
-        $this->_setbody( $body );
+
+        $this->_setBody( $body );
         $this->_setHeaders( $headers );
         $this->_setStatusCode( $statusCode );
         $this->_setError( $error );
+
     }
 
     /**
@@ -45,7 +47,7 @@ class Clx_Http_Response {
             throw new Clx_Exception( 'body is not of type string!' );
         }
 
-        $this->$body = $body;
+        $this->body = $body;
     }
 
     /**
