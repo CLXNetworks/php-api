@@ -8,7 +8,7 @@ interface Clx_Http_Adapter_Interface
      * @param string $url
      * @return Clx_Http_Response
      */
-    public function get( $username, $password, $url );
+    public function get( $auth, $url );
 
     /**
      * @param string $username
@@ -17,7 +17,7 @@ interface Clx_Http_Adapter_Interface
      * @param array $data
      * @return array
      */
-    public function post( $username, $password, $url, $data = null );
+    public function post( $auth, $url, $data = null );
 
     public function put();
 

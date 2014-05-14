@@ -20,17 +20,20 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
     }
 
     /**
-     * @param string $username
-     * @param string $password
+     * @param array $auth
      */
-    private function _setAuthOpts( $username, $password )
+    private function _setAuthOpts( $auth )
     {
-        $this->setOpt( CURLOPT_USERPWD, $username . ':' . $password );
+        if (is_array( $auth ))
+        {
+            $this->setOpt( CURLOPT_USERPWD, $auth['username'] . ':' . $auth['password'] );
+        }
+
     }
 
-    public function get( $username, $password, $url )
+    public function get( $auth, $url )
     {
-        $this->_setAuthOpts( $username, $password );
+        $this->_setAuthOpts( $auth );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
 
         return $this->execute();
@@ -39,9 +42,9 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
     /**
      * @todo Not complete
      */
-    public function post( $username, $password, $url, $data = null )
+    public function post( $auth, $url, $data = null )
     {
-        $this->_setAuthOpts( $username, $password );
+        $this->_setAuthOpts( $auth );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
         $this->setOpt(CURLOPT_POST, true);
 
@@ -81,7 +84,6 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
         $headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
-
 
         curl_close($ch);
 
