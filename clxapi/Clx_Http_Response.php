@@ -10,6 +10,11 @@ class Clx_Http_Response {
     /**
      * @var string
      */
+    private $rawHeaders;
+
+    /**
+     * @var array
+     */
     private $headers;
 
     /**
@@ -22,17 +27,19 @@ class Clx_Http_Response {
      */
     private $error;
 
-    /** 
-     * Default Constructor
+    /**
+     * @param string $body
+     * @param string $rawHeaders
+     * @param int $statusCode
+     * @param string $error
      */
-    public function __construct($body, $headers, $statusCode, $error)
+    public function __construct($body, $rawHeaders, $statusCode, $error)
     {
-
         $this->_setBody( $body );
-        $this->_setHeaders( $headers );
+        $this->_setRawHeaders( $rawHeaders );
+        $this->_setHeaders( $rawHeaders );
         $this->_setStatusCode( $statusCode );
         $this->_setError( $error );
-
     }
 
     /**
@@ -59,23 +66,46 @@ class Clx_Http_Response {
     }
 
     /**
-     * @param string $headers
+     * @param string $rawHeaders
      * @throws Clx_Exception
      */
-    private function _setHeaders( $headers )
+    private function _setRawHeaders( $rawHeaders )
     {
-        if( !is_string( $headers ) )
+        if( !is_string( $rawHeaders ) )
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'headers is not of type string!' );
+            throw new Clx_Exception( 'parameter is not of type string!' );
         }
 
-        $this->headers = $headers;
+        $this->rawHeaders = $rawHeaders;
+    }
+
+    /**
+     * @param string $rawHeaders
+     * @throws Clx_Exception
+     * @TODO parse headers here ?
+     */
+    private function _setHeaders( $rawHeaders )
+    {
+        if( !is_string( $rawHeaders ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'parameter is not of type string!' );
+        }
+
+        $this->headers =  $this->parseHeaders($rawHeaders);
     }
 
     /**
      * @return string
-     * @TODO parse headers
+     */
+    public function getRawHeaders()
+    {
+        return $this->rawHeaders;
+    }
+
+    /**
+     * @return array
      */
     public function getHeaders()
     {
@@ -131,6 +161,33 @@ class Clx_Http_Response {
     public static function generateResponse( array $result )
     {
         return new Clx_Http_Response( $result['body'], $result['headers'], $result['statusCode'], $result['error'] );
+    }
+
+    /**
+     * @param string $rawHeaders
+     * @return array $httpHeaders
+     */
+    private function parseHeaders($rawHeaders)
+    {
+
+        $rawHeaders = preg_split('/\r\n/', $rawHeaders, null, PREG_SPLIT_NO_EMPTY);
+        $httpHeaders = array();
+
+        for ($i = 1; $i < count($rawHeaders); $i++) {
+
+
+            list($key, $value) = explode(':', $rawHeaders[$i], 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            if (array_key_exists( $key, $httpHeaders )) {
+                $httpHeaders[$key] .= ',' . $value;
+            } else {
+                $httpHeaders[$key] = $value;
+            }
+        }
+
+        return $httpHeaders;
     }
 
 }
