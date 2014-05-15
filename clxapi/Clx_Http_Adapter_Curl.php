@@ -16,7 +16,7 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
     {
         // Set the minimum required curl options
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $this->setOpt(CURLINFO_HEADER_OUT, true);
+        $this->setOpt(CURLOPT_HEADER, true);
     }
 
     /**
@@ -80,8 +80,12 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
         curl_setopt_array($ch, $this->getOpt());
 
-        $body = curl_exec($ch);
-        $headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
+        $response = curl_exec($ch);
+
+
+        // Separates headers and body
+        list($headers, $body) = explode("\r\n\r\n", $response, 2);
+
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
 
