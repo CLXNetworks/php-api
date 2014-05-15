@@ -57,7 +57,7 @@ class Clx_Http_Client {
     /**
      * @return array|null
      */
-    public function _getAuth()
+    private function _getAuth()
     {
         return $this->auth;
     }
@@ -103,7 +103,7 @@ class Clx_Http_Client {
         else
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'Uri must be of type String!' );
+            throw new Clx_Exception( 'Parameter value must be of type "string"' );
         }
     }
 
@@ -127,13 +127,13 @@ class Clx_Http_Client {
         if( !is_string( $method ) )
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( '$method must be of type String!' );
+            throw new Clx_Exception( 'Parameter value must be of type "string"' );
         }
 
         if( !is_array( $data ) )
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( '$data must be of type Array!' );
+            throw new Clx_Exception( 'Parameter value must be of type "string"' );
         }
 
         $httpAdapter = $this->_getHttpAdapter();
