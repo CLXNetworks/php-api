@@ -166,6 +166,7 @@ class Clx_Http_Response {
     /**
      * @param string $rawHeaders
      * @return array $httpHeaders
+     * @todo should this class parse headers
      */
     private function parseHeaders($rawHeaders)
     {
@@ -174,7 +175,6 @@ class Clx_Http_Response {
         $httpHeaders = array();
 
         for ($i = 1; $i < count($rawHeaders); $i++) {
-
 
             list($key, $value) = explode(':', $rawHeaders[$i], 2);
             $key = trim($key);

@@ -81,8 +81,7 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
         curl_setopt_array($ch, $this->getOpt());
 
         $response = curl_exec($ch);
-
-
+        
         // Separates headers and body
         list($headers, $body) = explode("\r\n\r\n", $response, 2);
 
