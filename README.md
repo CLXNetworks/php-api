@@ -22,7 +22,7 @@ $operator = $clx->getOperatorById( 10 );
 getOperatorbyId will return a Clx_Http_Response object
 
 ```
-example Clx_Http_Object goes here....
+example Clx_Http_Response Object goes here....
 
 ```
 ##Requirements
