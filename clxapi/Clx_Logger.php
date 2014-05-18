@@ -1,6 +1,6 @@
 <?php
 
-class Clx_Logger 
+class Clx_Logger
 {
     const INFO = 'INFO';
     const DEBUG = 'DEBUG';

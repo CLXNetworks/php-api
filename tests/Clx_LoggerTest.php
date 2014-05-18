@@ -5,11 +5,14 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
 
     private $logger;
 
-    const filePath = "./logs/log.txt";
+    private $filePath;
 
     public function setUp()
     {
+        $this->filePath =  __DIR__ . "/logs/log.txt";
+
         $this->logger = Clx_Logger::getInstance();
+        $this->logger->setLogFile( $this->filePath );
     }
 
     public function testGetInstance()
@@ -19,9 +22,9 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
 
     public function testCreatingFileOnFirstLog()
     {
-        $this->assertFileNotExists( self::filePath );
+        $this->assertFileNotExists( $this->filePath );
         $this->logger->log('test');
-        $this->assertFileExists( self::filePath );
+        $this->assertFileExists( $this->filePath );
     }
 
     public function testAppendingToFile()
@@ -30,14 +33,14 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
         $this->logger->log('test2');
         $this->logger->log('test3');
         $this->logger->log('test4');
-        $this->assertCount(4, file( self::filePath ));
+        $this->assertCount(4, file( $this->filePath ));
 
     }
 
     public function testLogInfo()
     {
         $this->logger->log('test', Clx_Logger::INFO);
-        $expected = file_get_contents( self::filePath );
+        $expected = file_get_contents( $this->filePath );
 
         $this->assertRegExp('/^(\d{2})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\| INFO: test)$/', $expected );
     }
@@ -45,7 +48,7 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
     public function testLogDebug()
     {
         $this->logger->log('test', Clx_Logger::DEBUG);
-        $expected = file_get_contents( self::filePath );
+        $expected = file_get_contents( $this->filePath );
 
         $this->assertRegExp('/^(\d{2})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\| DEBUG: test)$/', $expected );
     }
@@ -53,7 +56,7 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
     public function testLogWarn()
     {
         $this->logger->log('test', Clx_Logger::WARN);
-        $expected = file_get_contents( self::filePath );
+        $expected = file_get_contents( $this->filePath );
 
         $this->assertRegExp('/^(\d{2})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\| WARN: test)$/', $expected );
     }
@@ -61,17 +64,17 @@ class Clx_LoggerTest extends PHPUnit_Framework_TestCase {
     public function testLogError()
     {
         $this->logger->log('test', Clx_Logger::ERROR);
-        $expected = file_get_contents( self::filePath );
+        $expected = file_get_contents( $this->filePath );
 
         $this->assertRegExp('/^(\d{2})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) (\| ERROR: test)$/', $expected );
     }
 
-    
+
     public function tearDown()
     {
-        if ( file_exists( self::filePath ))
+        if ( file_exists( $this->filePath ))
         {
-            unlink( self::filePath );
+            unlink( $this->filePath );
         }
         Clx_Logger::reset();
     }
