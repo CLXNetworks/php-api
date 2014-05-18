@@ -17,10 +17,10 @@ class Clx_Logger
      */
     private $path = "./logs/log.txt";
 
-    private function __construct()
-    {
-
-    }
+    /**
+     * Private constructor for singleton use.
+     */
+    private function __construct(){}
 
     /**
      * @return Clx_Logger|null
@@ -43,14 +43,13 @@ class Clx_Logger
         $this->path = $path;
     }
 
-
     /**
      * @param string $message
      * @param \const|string $level
      */
     public function log( $message, $level = self::INFO )
     {
-        $message = sprintf("%s | %s: %s\n", date('r, 0'), $level, $message);
+        $message = sprintf("%s | %s: %s\n", date('m-d-y H:i:s'), $level, $message);
         file_put_contents( $this->path, $message, FILE_APPEND );
     }
 
