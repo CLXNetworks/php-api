@@ -44,38 +44,58 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Api->getOperatorById( 'string' );
     }
 
-    /**
-     * @todo Should i test assertEquals on ex getBody, getHeaders to?
-     */
-    public function testGetOperatorsReturnClx_Http_ResponseObject()
-    {
 
+
+
+
+    public function testGetOperatorsSuccess()
+    {
         $response = $this->Clx_Api->getOperators();
 
-        if( $response instanceof Clx_Http_Response )
-        {
-            $this->assertEquals( 200, $response->getStatusCode() );
-        }
-        else
-        {
-            $this->fail( 'Expected Clx_Http_Response, got something else!' );
-        }
+        $this->assertContainsOnlyInstancesOf('stdClass', $response);
+        $this->assertInternalType( 'array', $response);
+        $this->assertEquals( 3, count($response));
     }
 
 
-    public function testGetOperatorsByIdReturnClx_Http_ResponseObject()
+
+
+
+
+
+
+    public function testGetOperatorByIdSuccess()
     {
-        $response = $this->Clx_Api->getOperatorById( 10 );
+        $response = $this->Clx_Api->getOperatorById( 1 );
 
-        if( $response instanceof Clx_Http_Response )
+        if( $response instanceof stdClass )
         {
-            $this->assertEquals( 200, $response->getStatusCode() );
+            $this->assertEquals('John Doe Mobile', $response->name);
+
+            //@todo Borde jag testa alla attribut här?
         }
         else
         {
             $this->fail( 'Expected Clx_Http_Response, got something else!' );
         }
     }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetOperatorByIdThatNotExists()
+    {
+        $this->Clx_Api->getOperatorById( 9999 );
+    }
+
+    public function testGetOperatorByIdWithUnknownError()
+    {
+        $response = $this->Clx_Api->getOperatorById( 9998 );
+        $this->assertInstanceOf( 'Clx_Http_Response', $response );
+    }
+
+
+
 
 
 

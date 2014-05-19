@@ -73,22 +73,54 @@ class Clx_Api {
         return $this->baseURI;
     }
 
+
+    /**
+     * @param $http_response Clx_Http_Response
+     * @throws Clx_Exception
+     * @return \Clx_Http_Response $result|$http_response stdClass|Clx_Http_Response
+     */
+    private function generateResult( $http_response )
+    {
+        $result = $http_response->getJsonDecodedBody();
+
+        if ( $http_response->getStatusCode() >= 400 )
+        {
+            if ( property_exists( $result, 'error' ) )
+            {
+                require_once 'Clx_Exception.php';
+                throw new Clx_Exception( 'Message: ' . $result->error->message . ' Code: ' .$result->error->code );
+            }
+            //@todo ska jag kaste ett undantag här med? isånnfalla skicka med response objektet på nått sätt?
+            return $http_response;
+        }
+
+        return $result;
+    }
+
+
+    /**************
+     * OPERATORS
+     **************/
+
     /**
      * Get All Operators
-     * /api/operator/
+     * GET /api/operator/
+     * @return stdClass|Clx_Http_Response
      */
     public function getOperators()
     {
         $this->httpClient->setURI( $this->_getBaseURI() . '/operator' );
-        $operators = $this->httpClient->request( 'GET' );
+        $http_response = $this->httpClient->request( 'GET' );
 
-        return $operators;
+        return $this->generateResult( $http_response );
+
     }
 
     /**
      * Get a specific operator by id
+     * GET /api/operator/<operator id>/
      * @param  int
-     * @return operator
+     * @return stdClass|Clx_Http_Response
      * @throws Exception
      */
     public function getOperatorById( $operator_id )
@@ -97,9 +129,10 @@ class Clx_Api {
         if( is_numeric( $operator_id ) )
         {
             $this->httpClient->setURI( $this->_getBaseURI() . '/operator/' . $operator_id) ;
-            $operator = $this->httpClient->request( 'GET' );
+            $http_response = $this->httpClient->request( 'GET' );
 
-            return $operator;
+            return $this->generateResult( $http_response );
+
         } 
         else
         {
@@ -107,6 +140,69 @@ class Clx_Api {
             throw new Clx_Exception( 'Operator_id must be an integer!' );
         }
     }
+
+
+
+
+    /**************
+     * GATEWAYS
+     **************/
+
+
+    /*
+    List all gateways
+    GET /api/gateway/
+
+    public function getGateways()
+    {
+
+    }
+    */
+
+    /*
+    List a single gateway
+    GET /api/gateway/<gateway id>
+
+    public function getGatewayById()
+    {
+
+    }
+    */
+
+
+    /**************
+     * Price Entries
+     **************/
+
+    /*
+    List all price entries for all operators on a specific gateway
+    GET /api/gateway/<gateway id>/price
+
+    public function getPriceEntriesForAllOperatorsByGateway()
+    {
+
+    }
+    */
+
+    /*
+    List price entries for a single operator on a specific gateway
+    GET /api/gateway/<gateway id>/price/<operator>/
+
+    public function getPriceEntriesForSingleOperatorByGateway()
+    {
+
+    }
+    */
+
+    /*
+    List price entries for a specific gateway, operator and date
+    GET /api/gateway/<gateway id>/price/<operator>/?date=<date>
+
+    public function getPriceEntriesForSpecificGatewayOperatorDate()
+    {
+
+    }
+    */
 
 
 }

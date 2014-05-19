@@ -21,8 +21,8 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
         {
             $result = $this->_responseArray[ $url ];
 
-            require_once __DIR__ . '/../clxapi/Clx_Http_Response.php';
-            return Clx_Http_Response::generateResponse( $result );
+            require_once __DIR__ . '/../clxapi/Clx_Http_Response_Json.php';
+            return Clx_Http_Response_Json::generateResponse( $result );
         }
 
         throw new Clx_Exception( 'Invalid request!' );

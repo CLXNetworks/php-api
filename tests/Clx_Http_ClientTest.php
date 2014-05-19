@@ -12,7 +12,7 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
         $httpAdapter = new Clx_Http_AdapterTest();
         $this->Clx_Http_Client = new Clx_Http_Client( 'username', 'password' );
         $this->Clx_Http_Client->setHttpAdapter( $httpAdapter );
-        $this->Clx_Http_Client->setURI('https://clx-aws.clxnetworks.com/api/operator/10');
+        $this->Clx_Http_Client->setURI('https://clx-aws.clxnetworks.com/api/operator/1');
 
     }
 
@@ -27,7 +27,6 @@ class Clx_Http_ClientTest extends PHPUnit_Framework_TestCase {
     public function testSetAuthThrowsClx_ExceptionIfParamIsNotString() {
         $this->Clx_Http_Client->setAuth( 1, 2 );
     }
-
 
 
     /**
