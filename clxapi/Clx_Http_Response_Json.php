@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Clx_Http_Response.php';
+
 class Clx_Http_Response_Json extends Clx_Http_Response {
 
 

@@ -90,8 +90,8 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
         curl_close($ch);
 
-        require_once 'Clx_Http_Response.php';
-        return new Clx_Http_Response( $body, $headers, $statusCode, $error );
+        require_once 'Clx_Http_Response_Json.php';
+        return new Clx_Http_Response_Json( $body, $headers, $statusCode, $error );
     }
 
     /**

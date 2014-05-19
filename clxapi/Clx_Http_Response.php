@@ -160,7 +160,7 @@ class Clx_Http_Response {
 
     public static function generateResponse( array $result )
     {
-        return new Clx_Http_Response( $result['body'], $result['headers'], $result['statusCode'], $result['error'] );
+        return new Clx_Http_Response_Json( $result['body'], $result['headers'], $result['statusCode'], $result['error'] );
     }
 
     /**
