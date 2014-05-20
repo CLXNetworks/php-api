@@ -33,13 +33,42 @@ class Clx_Http_ResponseTest extends PHPUnit_Framework_TestCase {
         $statusCode = 200;
         $error = 'error';
 
-
         $this->assertInstanceOf('Clx_Http_Response', $this->Clx_Http_Response);
         $this->assertEquals( $body, $this->Clx_Http_Response->getBody() );
         $this->assertEquals( $expectedRawHeadersString, $this->Clx_Http_Response->getRawHeaders() );
         $this->assertEquals( $expectedHeadersArray, $this->Clx_Http_Response->getHeaders() );
         $this->assertEquals( $statusCode, $this->Clx_Http_Response->getStatusCode() );
         $this->assertEquals( $error, $this->Clx_Http_Response->getError() );
+    }
+
+    public function testIsSuccessfulReturnsTrueIfSuccessfulRequest()
+    {
+        $body = '{"id":1,"name":"John","network":"Doe","uniqueName":"JohnDOE","isoCountryCode":"12","operationalState":"active","operationalStatDate":"-0001-11-30 00:00:00","numberOfSubscribers":0}';
+        $rawHeaders = "HTTP/1.1 200 OK\r
+                        Server: Apache\r
+                        Content-Type: application/json\r";
+
+        $statusCode = 200;
+        $error = 'error';
+        $Clx_Http_Response = new Clx_Http_Response( $body, $rawHeaders, $statusCode, $error );
+
+
+        $this->assertEquals( true, $Clx_Http_Response->isSuccessful() );
+    }
+
+    public function testIsSuccessfulReturnsFalseIfNotSuccessfulRequest()
+    {
+        $body = '';
+        $rawHeaders = "HTTP/1.1 401 Not Found\r
+                        Server: Apache\r
+                        Content-Type: application/json\r";
+
+        $statusCode = 401;
+        $error = 'error';
+        $Clx_Http_Response = new Clx_Http_Response( $body, $rawHeaders, $statusCode, $error );
+
+
+        $this->assertEquals( false, $Clx_Http_Response->isSuccessful() );
     }
 
     /**

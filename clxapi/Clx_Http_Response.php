@@ -27,6 +27,7 @@ class Clx_Http_Response {
      */
     private $error;
 
+
     /**
      * @param string $body
      * @param string $rawHeaders
@@ -156,6 +157,20 @@ class Clx_Http_Response {
     public function getError()
     {
         return $this->error;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        if ( $this->statusCode >= 200 && $this->statusCode < 400 )
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public static function generateResponse( array $result )
