@@ -23,7 +23,8 @@ try {
     echo ' operationalStatDate: ' . $operator->operationalStatDate;
     echo ' numberOfSubscribers: ' . $operator->numberOfSubscribers . "\n";
 
-} catch (Exception $e) {
+} catch (Clx_Exception $e) {
     echo $e->getMessage();
+    var_dump( $e->getResponseObject() );
 }
 ?>
