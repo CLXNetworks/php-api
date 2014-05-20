@@ -88,10 +88,27 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Api->getOperatorById( 9999 );
     }
 
-    public function testGetOperatorByIdWithUnknownError()
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetOperatorByIdWithUnknownErrorThrows()
     {
-        $response = $this->Clx_Api->getOperatorById( 9998 );
-        $this->assertInstanceOf( 'Clx_Http_Response', $response );
+        $this->Clx_Api->getOperatorById( 9998 );
+    }
+
+    public function testGetOperatorByIdWithUnknownErrorCanAccessResponseObject()
+    {
+        try
+        {
+            $this->Clx_Api->getOperatorById( 9998 );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
+        }
+
+
+
     }
 
 

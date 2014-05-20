@@ -77,21 +77,22 @@ class Clx_Api {
     /**
      * @param $http_response Clx_Http_Response
      * @throws Clx_Exception
-     * @return \Clx_Http_Response $result|$http_response stdClass|Clx_Http_Response
+     * @return $result stdClass
      */
     private function generateResult( $http_response )
     {
         $result = $http_response->getJsonDecodedBody();
 
-        if ( $http_response->getStatusCode() >= 400 )
+        if ( !$http_response->isSuccessful() )
         {
             if ( property_exists( $result, 'error' ) )
             {
                 require_once 'Clx_Exception.php';
                 throw new Clx_Exception( 'Message: ' . $result->error->message . ' Code: ' .$result->error->code );
             }
-            //@todo ska jag kaste ett undantag här med? isånnfalla skicka med response objektet på nått sätt?
-            return $http_response;
+
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Something went wrong with the request', $http_response );
         }
 
         return $result;
