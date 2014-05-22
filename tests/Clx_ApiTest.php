@@ -45,7 +45,9 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
-
+    /******************************
+     * Operator
+     ******************************/
 
 
     public function testGetOperatorsSuccess()
@@ -89,17 +91,11 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
         catch( Clx_Exception $e )
         {
-            $this->assertEquals( 'Message: Could not find operator with id: 9999 Code: 3001', $e->getMessage() );
+            $this->assertEquals( 'Message: Could not find operator with id: 9999', $e->getMessage() );
+            $this->assertEquals( 3001, $e->getCode());
         }
     }
 
-    /**
-     * @expectedException Clx_Exception
-     */
-    public function testGetOperatorByIdWithUnknownErrorThrows()
-    {
-        $this->Clx_Api->getOperatorById( 9998 );
-    }
 
     public function testGetOperatorByIdWithUnknownErrorCanAccessResponseObject()
     {
@@ -112,6 +108,11 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
             $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
         }
     }
+
+
+    /******************************
+     * Gateway
+     ******************************/
 
 
     public function testGetGatewaysSuccess()
@@ -141,7 +142,122 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testGetGatewayByIdThatNotExists()
+    {
+        try
+        {
+            $this->Clx_Api->getGatewayById( 9999 );
+            $this->fail( 'Never want to get here!' );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 3001, $e->getCode());
+        }
+    }
 
+    public function testGetGatewayByIdWithUnknownErrorCanAccessResponseObject()
+    {
+        try
+        {
+            $this->Clx_Api->getGatewayById( 9998 );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
+        }
+    }
+
+
+    /******************************
+     * Price
+     ******************************/
+
+    public function testGetPriceEntriesByGatewayIdSuccess()
+    {
+        $response = $this->Clx_Api->getPriceEntriesByGatewayId( 1 );
+
+        $this->assertContainsOnlyInstancesOf( 'stdClass', $response );
+        $this->assertInternalType( 'array', $response );
+        $this->assertEquals( 3, count( $response ) );
+        $this->assertEquals( '0.35', $response[0]->price );
+        //@todo Borde jag testa alla attribut här?
+    }
+
+
+    public function testGetPriceEntriesByGatewayIdThatNotExists()
+    {
+        try
+        {
+            $this->Clx_Api->getPriceEntriesByGatewayId( 9999 );
+            $this->fail( 'Never want to get here!' );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 3001, $e->getCode());
+        }
+    }
+
+
+    public function testGetPriceEntriesByGatewayIdWithUnknownErrorCanAccessResponseObject()
+    {
+        try
+        {
+            $this->Clx_Api->getPriceEntriesByGatewayId( 9998 );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
+        }
+    }
+
+
+
+
+    public function testGetPriceEntriesForSingleOperatorByGatewayIdSuccess()
+    {
+        $response = $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 1, 1 );
+
+        if( $response instanceof stdClass )
+        {
+            $this->assertEquals( '0.35', $response->price );
+
+            //@todo Borde jag testa alla attribut här?
+        }
+        else
+        {
+            $this->fail( 'Expected Clx_Http_Response, got something else!' );
+        }
+    }
+
+
+    public function testGetPriceEntriesForSingleOperatorByGatewayIdThatNotExists()
+    {
+        try
+        {
+            $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 9999, 1 );
+            $this->fail( 'Never want to get here!' );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 3001, $e->getCode());
+        }
+    }
+
+
+    public function testGetPriceEntriesForSingleOperatorByGatewayIdWithUnknownErrorCanAccessResponseObject()
+    {
+        try
+        {
+            $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 9998, 1 );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
+        }
+    }
 
 
 }

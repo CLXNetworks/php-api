@@ -41,7 +41,7 @@ public static  $responseArray = array(
 
 
 
-                        /*Operator with unknown error GET*/
+                        /*GET Operator with unknown error*/
                         'https://clx-aws.clxnetworks.com/api/operator/9998' => array( 'body' => '{
 
                                                                                                  }',
@@ -125,12 +125,143 @@ public static  $responseArray = array(
                                                                                                     Server: Apache\r
                                                                                                     Content-Type: application/json\r",
                                                                                     'statusCode' => 200,
-                                                                                    'error' => '')
+                                                                                    'error' => ''),
 
 
 
 
-                );
+                        /*Gateway that not exists with error message GET*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9999' => array( 'body' => '{    "error": {
+                                                                                                                 "message": "Unable to find gateway with name: 9999.",
+                                                                                                                 "code": 3001
+                                                                                                              }
+                                                                                                 }',
+                                                                                        'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                        'statusCode' => 404,
+                                                                                        'error' => ''),
+
+                        /*GET Gateway with unknown error*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9998' => array( 'body' => '{
+
+                                                                                                         }',
+                                                                                        'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                        'statusCode' => 404,
+                                                                                        'error' => ''),
+
+
+
+
+
+                        /******************************
+                         * Price Requests
+                         ******************************/
+
+                        /*Successful request GET Price all price entries on specific gateway*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/1/price' => array( 'body' => '[
+                                                                                                            {
+                                                                                                                "price": "0.35",
+                                                                                                                "gateway": "Supp1",
+                                                                                                                "operator": "AMC-AL",
+                                                                                                                "expireDate": 0
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "price": "0.35",
+                                                                                                                "gateway": "Supp1",
+                                                                                                                "operator": "Eagle Mobile-AL",
+                                                                                                                "expireDate": 0
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "price": "0.35",
+                                                                                                                "gateway": "Supp1",
+                                                                                                                "operator": "Plus Albania-AL",
+                                                                                                                "expireDate": 0
+                                                                                                            }
+                                                                                                    ]',
+                                                                                'headers' =>    "HTTP/1.1 200 OK\r
+                                                                                                Server: Apache\r
+                                                                                                Content-Type: application/json\r",
+                                                                                'statusCode' => 200,
+                                                                                'error' => ''),
+
+
+
+                        /*Price entries by GatewayId that not exists with error message GET*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9999/price' => array( 'body' => '{    "error": {
+                                                                                                                 "message": "Unable to find gateway with name: 9999.",
+                                                                                                                 "code": 3001
+                                                                                                              }
+                                                                                                 }',
+                                                                                'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                'statusCode' => 404,
+                                                                                'error' => ''),
+
+
+
+                        /*GET Price entries by Gatewayid with unknown error*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9998/price' => array( 'body' => '{
+
+                                                                                                         }',
+                                                                                    'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                    'statusCode' => 404,
+                                                                                    'error' => ''),
+
+
+
+
+
+
+                        /*Successful request GET Price price entries on specific operator and gateway*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/1/price/1' => array( 'body' => '{
+                                                                                                        "price": "0.35",
+                                                                                                        "gateway": "Supp1",
+                                                                                                        "operator": "AMC-AL",
+                                                                                                        "expireDate": 0
+                                                                                                    }',
+                                                                                    'headers' =>    "HTTP/1.1 200 OK\r
+                                                                                                    Server: Apache\r
+                                                                                                    Content-Type: application/json\r",
+                                                                                    'statusCode' => 200,
+                                                                                    'error' => ''),
+
+
+
+                        /*GET Price price entries on specific operator and gateway that not exists with error message GET*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9999/price/1' => array( 'body' => '{    "error": {
+                                                                                                                 "message": "Unable to find gateway with name: 9999.",
+                                                                                                                 "code": 3001
+                                                                                                              }
+                                                                                                 }',
+                                                                                        'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                        'statusCode' => 404,
+                                                                                        'error' => ''),
+
+
+
+                        /*GET Price price entries on specific operator and gateway with unknown error*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9998/price/1' => array( 'body' => '{
+
+                                                                                                         }',
+                                                                                        'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                        'statusCode' => 404,
+                                                                                        'error' => ''),
+
+
+
+
+
+              );
 
 
 }

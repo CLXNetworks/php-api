@@ -86,7 +86,7 @@ class Clx_Api {
             if ( property_exists( $result, 'error' ) )
             {
                 require_once 'Clx_Exception.php';
-                throw new Clx_Exception( 'Message: ' . $result->error->message . ' Code: ' .$result->error->code );
+                throw new Clx_Exception( 'Message: ' . $result->error->message , NULL, $result->error->code );
             }
 
             require_once 'Clx_Exception.php';
@@ -123,18 +123,16 @@ class Clx_Api {
      */
     public function getOperatorById( $operator_id )
     {
-        if( is_numeric( $operator_id ) )
-        {
-            $this->httpClient->setURI( $this->_getBaseURI() . '/operator/' . $operator_id) ;
-            $http_response = $this->httpClient->request( 'GET' );
-
-            return $this->generateResult( $http_response );
-        } 
-        else
+        if( !is_int( $operator_id ) )
         {
             require_once 'Clx_Exception.php';
             throw new Clx_Exception( 'Operator_id must be an integer!' );
-        }
+        } 
+
+        $this->httpClient->setURI( $this->_getBaseURI() . '/operator/' . $operator_id) ;
+        $http_response = $this->httpClient->request( 'GET' );
+
+        return $this->generateResult( $http_response );
     }
 
 
@@ -169,18 +167,16 @@ class Clx_Api {
      */
     public function getGatewayById( $gateway_id )
     {
-        if( is_numeric( $gateway_id ) )
-        {
-            $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id) ;
-            $http_response = $this->httpClient->request( 'GET' );
-
-            return $this->generateResult( $http_response );
-        }
-        else
+        if( !is_int( $gateway_id ) )
         {
             require_once 'Clx_Exception.php';
             throw new Clx_Exception( 'Gateway_id must be an integer!' );
         }
+
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id);
+        $http_response = $this->httpClient->request( 'GET' );
+
+        return $this->generateResult( $http_response );
     }
 
 
@@ -189,25 +185,53 @@ class Clx_Api {
      * Price Entries
      **************/
 
-    /*
-    List all price entries for all operators on a specific gateway
-    GET /api/gateway/<gateway id>/price
 
-    public function getPriceEntriesForAllOperatorsByGateway()
+    /**
+     *List all price entries for all operators on a specific gateway
+     * GET /api/gateway/<gateway id>/price
+     * @param int $gateway_id
+     * @throws Clx_Exception
+     * @return stdClass|Clx_Http_Response
+     */
+    public function getPriceEntriesByGatewayId( $gateway_id )
     {
+        if ( !is_int( $gateway_id ))
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Gateway_id must be an integer!' );
+        }
+
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id . '/price');
+        $http_response = $this->httpClient->request( 'GET' );
+
+        return $this->generateResult( $http_response );
 
     }
-    */
 
-    /*
-    List price entries for a single operator on a specific gateway
-    GET /api/gateway/<gateway id>/price/<operator>/
 
-    public function getPriceEntriesForSingleOperatorByGateway()
+    /**
+     *List price entries for a single operator on a specific gateway
+     *GET /api/gateway/<gateway id>/price/<operator>/
+     * @param itn $gateway_id
+     * @param int $operator_id
+     * @throws Clx_Exception
+     * @return stdClass|Clx_Http_Response
+     */
+    public function getPriceEntriesForSingleOperatorByGatewayId( $gateway_id, $operator_id )
     {
 
+        if ( !is_int( $gateway_id ) || !is_int( $operator_id ))
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Gateway_id must be an integer!' );
+        }
+
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id . '/price/' . $operator_id );
+        $http_response = $this->httpClient->request( 'GET' );
+
+        return $this->generateResult( $http_response );
     }
-    */
+
 
     /*
     List price entries for a specific gateway, operator and date
