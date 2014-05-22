@@ -30,8 +30,6 @@ class Clx_Api {
         {
             $this->httpClient->setAuth( $config['username'], $config['password'] );
         }
-
-
     }
 
     /**
@@ -114,7 +112,6 @@ class Clx_Api {
         $http_response = $this->httpClient->request( 'GET' );
 
         return $this->generateResult( $http_response );
-
     }
 
     /**
@@ -126,14 +123,12 @@ class Clx_Api {
      */
     public function getOperatorById( $operator_id )
     {
-
         if( is_numeric( $operator_id ) )
         {
             $this->httpClient->setURI( $this->_getBaseURI() . '/operator/' . $operator_id) ;
             $http_response = $this->httpClient->request( 'GET' );
 
             return $this->generateResult( $http_response );
-
         } 
         else
         {
@@ -150,25 +145,44 @@ class Clx_Api {
      **************/
 
 
-    /*
-    List all gateways
-    GET /api/gateway/
-
+    /**
+     *List all gateways
+     * GET /api/gateway/
+     * @return stdClass|Clx_Http_Response
+     */
     public function getGateways()
     {
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway');
+        $http_response = $this->httpClient->request( 'GET' );
 
+        return $this->generateResult( $http_response );
     }
-    */
 
-    /*
-    List a single gateway
-    GET /api/gateway/<gateway id>
 
-    public function getGatewayById()
+
+    /**
+     * List a single gateway
+     * GET /api/gateway/<gateway id>
+     * @param int $gateway_id
+     * @return stdClass|Clx_Http_Response
+     * @throws Clx_Exception
+     */
+    public function getGatewayById( $gateway_id )
     {
+        if( is_numeric( $gateway_id ) )
+        {
+            $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id) ;
+            $http_response = $this->httpClient->request( 'GET' );
 
+            return $this->generateResult( $http_response );
+        }
+        else
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Gateway_id must be an integer!' );
+        }
     }
-    */
+
 
 
     /**************

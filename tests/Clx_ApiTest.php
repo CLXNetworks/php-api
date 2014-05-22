@@ -52,15 +52,14 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     {
         $response = $this->Clx_Api->getOperators();
 
-        $this->assertContainsOnlyInstancesOf('stdClass', $response);
-        $this->assertInternalType( 'array', $response);
-        $this->assertEquals( 3, count($response));
+        $this->assertContainsOnlyInstancesOf( 'stdClass', $response );
+        $this->assertInternalType( 'array', $response );
+        $this->assertEquals( 3, count( $response ) );
+        $this->assertEquals( 'John Doe Mobile', $response[0]->name );
+        //@todo Borde jag testa alla attribut här?
     }
 
-
-
-
-
+    //@todo hur testa GetOperators Fail
 
 
 
@@ -70,7 +69,7 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
 
         if( $response instanceof stdClass )
         {
-            $this->assertEquals('John Doe Mobile', $response->name);
+            $this->assertEquals( 'John Doe Mobile', $response->name );
 
             //@todo Borde jag testa alla attribut här?
         }
@@ -80,12 +79,18 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    /**
-     * @expectedException Clx_Exception
-     */
+
     public function testGetOperatorByIdThatNotExists()
     {
-        $this->Clx_Api->getOperatorById( 9999 );
+        try
+        {
+            $this->Clx_Api->getOperatorById( 9999 );
+            $this->fail( 'Never want to get here!' );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertEquals( 'Message: Could not find operator with id: 9999 Code: 3001', $e->getMessage() );
+        }
     }
 
     /**
@@ -106,12 +111,35 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         {
             $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
         }
-
-
-
     }
 
 
+    public function testGetGatewaysSuccess()
+    {
+        $response = $this->Clx_Api->getGateways();
+
+        $this->assertContainsOnlyInstancesOf( 'stdClass', $response );
+        $this->assertInternalType( 'array', $response );
+        $this->assertEquals( 3, count( $response ) );
+        $this->assertEquals( 'Supp1', $response[0]->name );
+        //@todo Borde jag testa alla attribut här?
+    }
+
+    public function testGetGatewayByIdSuccess()
+    {
+        $response = $this->Clx_Api->getGatewayById( 1 );
+
+        if( $response instanceof stdClass )
+        {
+            $this->assertEquals( 'Supp1', $response->name );
+
+            //@todo Borde jag testa alla attribut här?
+        }
+        else
+        {
+            $this->fail( 'Expected Clx_Http_Response, got something else!' );
+        }
+    }
 
 
 
