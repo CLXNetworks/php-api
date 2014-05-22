@@ -1,6 +1,6 @@
 <?php
 
-require_once 'clxapi/Clx_Api.php';
+require_once '../clxapi/Clx_Api.php';
 
 $config = array(
     'username' => 'your-username',

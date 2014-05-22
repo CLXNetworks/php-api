@@ -1,0 +1,26 @@
+<?php
+
+require_once '../clxapi/Clx_Api.php';
+
+$config = array(
+    'username' => 'your-username',
+    'password'=> 'your-password'
+);
+
+
+$clx = new Clx_Api( $config );
+$clx->setBaseURI( 'https://example.com/api' );
+
+try {
+    $gateway = $clx->getGatewayById( 1 );
+
+    echo ' id: ' . $gateway->id;
+    echo ' name: ' . $gateway->name;
+    echo ' type: ' . $gateway->type;
+
+
+} catch (Clx_Exception $e) {
+    echo $e->getMessage();
+    var_dump( $e->getResponseObject() );
+}
+?>
