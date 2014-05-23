@@ -260,6 +260,30 @@ public static  $responseArray = array(
 
 
 
+                        /*Successful request GET Price price entries on specific operator and gateway and date*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/1/price/1/?date=2014-05-23' => array( 'body' => '{
+                                                                                                        "price": "0.35",
+                                                                                                        "gateway": "Supp1",
+                                                                                                        "operator": "AMC-AL",
+                                                                                                        "expireDate": 0
+                                                                                                    }',
+                                                                                    'headers' =>    "HTTP/1.1 200 OK\r
+                                                                                                    Server: Apache\r
+                                                                                                    Content-Type: application/json\r",
+                                                                                    'statusCode' => 200,
+                                                                                    'error' => ''),
+
+
+                        /*GET Price price entries on specific operator and gateway with unknown error*/
+                        'https://clx-aws.clxnetworks.com/api/gateway/9998/price/1/?date=2014-05-23' => array( 'body' => '{
+
+                                                                                                         }',
+                                                                                    'headers' =>    "HTTP/1.1 404 Not Found\r
+                                                                                                        Server: Apache\r
+                                                                                                        Content-Type: application/json\r",
+                                                                                    'statusCode' => 404,
+                                                                                    'error' => ''),
+
 
               );
 

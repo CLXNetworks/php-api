@@ -44,6 +44,65 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         $this->Clx_Api->getOperatorById( 'string' );
     }
 
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetGatewayByIdThrowsIfNotInteger()
+    {
+        $this->Clx_Api->getGatewayById( 'string' );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdThrowsIfNotInteger()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayId( 'string' );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdThrowsIfGatewayIdNotInteger()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorId( 'string', 1 );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdThrowsIfOperatorIdNotInteger()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorId( 1, 'string' );
+    }
+
+
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdAndDateThrowsIfGatewayIdNotInteger()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorIdAndDate( 1, 'string', '2012-09-12' );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdAndDateThrowsIfOperatorIdNotInteger()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorIdAndDate( 1, 'string', '2012-09-12' );
+    }
+
+    /**
+     * @expectedException Clx_Exception
+     */
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdAndDateThrowsIfDateNotCorrectFormat()
+    {
+        $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorIdAndDate( 1, 1, '2012-09-' );
+    }
+
+
 
     /******************************
      * Operator
@@ -173,6 +232,11 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
      * Price
      ******************************/
 
+
+    /*
+     * GetPriceEntriesByGatewayId
+     */
+
     public function testGetPriceEntriesByGatewayIdSuccess()
     {
         $response = $this->Clx_Api->getPriceEntriesByGatewayId( 1 );
@@ -213,11 +277,13 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
+    /*
+     * GetPriceEntriesByGatewayIdAndOperatorId
+     */
 
-
-    public function testGetPriceEntriesForSingleOperatorByGatewayIdSuccess()
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdSuccess()
     {
-        $response = $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 1, 1 );
+        $response = $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorId( 1, 1 );
 
         if( $response instanceof stdClass )
         {
@@ -232,11 +298,11 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetPriceEntriesForSingleOperatorByGatewayIdThatNotExists()
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdThatNotExists()
     {
         try
         {
-            $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 9999, 1 );
+            $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorId( 9999, 1 );
             $this->fail( 'Never want to get here!' );
         }
         catch( Clx_Exception $e )
@@ -247,11 +313,45 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetPriceEntriesForSingleOperatorByGatewayIdWithUnknownErrorCanAccessResponseObject()
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdWithUnknownErrorCanAccessResponseObject()
     {
         try
         {
-            $this->Clx_Api->getPriceEntriesForSingleOperatorByGatewayId( 9998, 1 );
+            $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorId( 9998, 1 );
+        }
+        catch( Clx_Exception $e )
+        {
+            $this->assertInstanceOf( 'Clx_Http_Response', $e->getResponseObject());
+        }
+    }
+
+
+    /*
+     * GetPriceEntriesByGatewayIdAndOperatorIdAndDate
+     */
+
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdAndDateSuccess()
+    {
+        $response = $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorIdAndDate( 1, 1, '2014-05-23' );
+
+        if( $response instanceof stdClass )
+        {
+            $this->assertEquals( '0.35', $response->price );
+
+            //@todo Borde jag testa alla attribut här?
+        }
+        else
+        {
+            $this->fail( 'Expected Clx_Http_Response, got something else!' );
+        }
+    }
+
+
+    public function testGetPriceEntriesByGatewayIdAndOperatorIdAndDateWithUnknownErrorCanAccessResponseObject()
+    {
+        try
+        {
+            $this->Clx_Api->getPriceEntriesByGatewayIdAndOperatorIdAndDate( 9998, 1, '2014-05-23' );
         }
         catch( Clx_Exception $e )
         {

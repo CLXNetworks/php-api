@@ -5,7 +5,9 @@ class Clx_Http_Adapter_CurlTest extends PHPUnit_Framework_TestCase {
 
     public function testValidConstruct()
     {
-        $this->markTestIncomplete( 'This test has not been implemented yet.' );
+        $Clx_Http_Adapter_Curl = new Clx_Http_Adapter_Curl();
+
+        $this->assertInstanceOf( 'Clx_Http_Adapter_Curl', $Clx_Http_Adapter_Curl );
     }
 
     public  function testGet()

@@ -189,19 +189,19 @@ class Clx_Api {
     /**
      *List all price entries for all operators on a specific gateway
      * GET /api/gateway/<gateway id>/price
-     * @param int $gateway_id
+     * @param int $gatewayId
      * @throws Clx_Exception
      * @return stdClass|Clx_Http_Response
      */
-    public function getPriceEntriesByGatewayId( $gateway_id )
+    public function getPriceEntriesByGatewayId( $gatewayId )
     {
-        if ( !is_int( $gateway_id ))
+        if ( !is_int( $gatewayId ))
         {
             require_once 'Clx_Exception.php';
-            throw new Clx_Exception( 'Gateway_id must be an integer!' );
+            throw new Clx_Exception( 'gatewayId must be an integer!' );
         }
 
-        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id . '/price');
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gatewayId . '/price');
         $http_response = $this->httpClient->request( 'GET' );
 
         return $this->generateResult( $http_response );
@@ -212,36 +212,65 @@ class Clx_Api {
     /**
      *List price entries for a single operator on a specific gateway
      *GET /api/gateway/<gateway id>/price/<operator>/
-     * @param itn $gateway_id
-     * @param int $operator_id
+     * @param int $gatewayId
+     * @param int $operatorId
      * @throws Clx_Exception
      * @return stdClass|Clx_Http_Response
      */
-    public function getPriceEntriesForSingleOperatorByGatewayId( $gateway_id, $operator_id )
+    public function getPriceEntriesByGatewayIdAndOperatorId( $gatewayId, $operatorId )
     {
 
-        if ( !is_int( $gateway_id ) || !is_int( $operator_id ))
+        if ( !is_int( $gatewayId ) )
         {
             require_once 'Clx_Exception.php';
             throw new Clx_Exception( 'Gateway_id must be an integer!' );
         }
+        if ( !is_int( $operatorId ))
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'operator_id must be an integer!' );
+        }
 
-        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gateway_id . '/price/' . $operator_id );
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gatewayId . '/price/' . $operatorId );
         $http_response = $this->httpClient->request( 'GET' );
 
         return $this->generateResult( $http_response );
     }
 
 
-    /*
-    List price entries for a specific gateway, operator and date
-    GET /api/gateway/<gateway id>/price/<operator>/?date=<date>
-
-    public function getPriceEntriesForSpecificGatewayOperatorDate()
+    /**
+     * List price entries for aspecific gateway, operator and date
+     * GET /api/gateway/<gateway id>/price/<operator>/?date=<date>
+     * @param int $gatewayId
+     * @param int $operatorId
+     * @param string $date
+     * @throws Clx_Exception
+     */
+    public function getPriceEntriesByGatewayIdAndOperatorIdAndDate( $gatewayId, $operatorId, $date )
     {
+        if ( !is_int( $gatewayId ) )
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'Gateway_id must be an integer!' );
+        }
+        if ( !is_int( $operatorId ))
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'operator_id must be an integer!' );
+        }
+        if ( !preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date ))
+        {
+            require_once 'Clx_Exception.php';
+            throw new Clx_Exception( 'date is not a valid dateformat,  Should be yyyy-mm-dd' );
+        }
+
+        $this->httpClient->setURI( $this->_getBaseURI() . '/gateway/' . $gatewayId . '/price/' . $operatorId . '/?date=' . $date );
+        $http_response = $this->httpClient->request( 'GET' );
+
+        return $this->generateResult( $http_response );
 
     }
-    */
+
 
 
 }
