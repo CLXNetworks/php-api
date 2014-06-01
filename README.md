@@ -14,5 +14,10 @@ PHP 5.2
 
 [cURL Library](http://php.net/manual/en/book.curl.php)
 
+##Unit Tests
+To run unit tests, you'll need to have phpunit installed.
+
 
 ##License
+
+add licence information here..
