@@ -10,7 +10,7 @@ PHP wrapper library to interact with the CLX REST API.
 
 ##Requirements
 
-PHP 5.2
+PHP Version 5.2 or later.
 
 [cURL Library](http://php.net/manual/en/book.curl.php)
 
