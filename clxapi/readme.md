@@ -1,1 +1,1 @@
-###This folder will contain the actual api wrapper.
+###This folder contains the CLX api library.
