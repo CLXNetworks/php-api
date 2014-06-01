@@ -3,25 +3,35 @@
 interface Clx_Http_Adapter_Interface
 {
     /**
-     * @param string $username
-     * @param string $password
+     * @param $auth
      * @param string $url
      * @return Clx_Http_Response
      */
     public function get( $auth, $url );
 
     /**
-     * @param string $username
-     * @param string $password
+     * @param $auth
      * @param string $url
      * @param array $data
-     * @return array
+     * @return Clx_Http_Response
      */
     public function post( $auth, $url, $data = null );
 
-    public function put();
+    /**
+     * @param $auth
+     * @param string $url
+     * @param array $data
+     * @return Clx_Http_Response
+     */
+    public function put( $auth, $url, $data = null );
 
-    public function delete();
+    /**
+     * @param $auth
+     * @param string $url
+     * @param array $data
+     * @return Clx_Http_Response
+     */
+    public function delete( $auth, $url, $data = null );
 
 
 }

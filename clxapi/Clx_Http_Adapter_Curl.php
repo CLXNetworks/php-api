@@ -31,7 +31,7 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
 
     }
 
-    public function get( $auth, $url )
+    public function get( $auth = null, $url )
     {
         $this->_setAuthOpts( $auth );
         $this->setOpt(CURLOPT_URL, $this->buildURL($url));
@@ -39,9 +39,6 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
         return $this->execute();
     }
 
-    /**
-     * @todo Not complete
-     */
     public function post( $auth, $url, $data = null )
     {
         $this->_setAuthOpts( $auth );
@@ -49,26 +46,45 @@ class Clx_Http_Adapter_Curl implements Clx_Http_Adapter_Interface {
         $this->setOpt(CURLOPT_POST, true);
 
         if (!empty($data)) {
-            $this->setOpt(CURLOPT_POSTFIELDS, json_encode($data));
+
+            $data = http_build_query($data);
+            $this->setOpt(CURLOPT_POSTFIELDS, $data);
         }
 
         return $this->execute();
     }
 
-    /**
-     * @todo Not complete
-     */
-    public function put()
+
+    public function put( $auth, $url, $data = null )
     {
-        $this->_setAuthOpts( $username, $password );
+        $this->_setAuthOpts( $auth );
+        $this->setOpt(CURLOPT_URL, $this->buildURL($url));
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
+
+        if (!empty($data)) {
+
+            $put_Data = http_build_query($data);
+            $this->setOpt(CURLOPT_POSTFIELDS, $put_Data);
+        }
+
+        return $this->execute();
+
     }
 
-    /**
-     * @todo Not complete
-     */
-    public function delete()
+
+    public function delete( $auth, $url, $data = null )
     {
-        $this->_setAuthOpts( $username, $password );
+        $this->_setAuthOpts( $auth );
+        $this->setOpt(CURLOPT_URL, $this->buildURL($url, $data));
+        $this->setOpt(CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+        if (!empty($data)) {
+
+            $put_Data = http_build_query($data);
+            $this->setOpt(CURLOPT_POSTFIELDS, $put_Data);
+        }
+
+        return $this->execute();
     }
 
     /**

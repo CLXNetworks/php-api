@@ -34,12 +34,12 @@ class Clx_Http_AdapterTest implements Clx_Http_Adapter_Interface
 
     }
 
-    public function put()
+    public function put( $auth, $url, $data = null )
     {
 
     }
 
-    public function delete()
+    public function delete( $auth, $url, $data = null )
     {
 
     }
