@@ -14,15 +14,12 @@ $clx->setBaseURI( 'https://example.com/api' );
 try {
     $priceEntries = $clx->getPriceEntriesByGatewayId( 2182 );
 
-    var_dump($priceEntries);
-    die();
-
     foreach ( $priceEntries as $priceEntry)
     {
         echo ' price: ' . $priceEntry->price;
         echo ' gateway: ' . $priceEntry->gateway;
         echo ' operator: ' . $priceEntry->operator;
-        echo ' expireDate: ' . $priceEntry->expireDate;
+        echo ' expireDate: ' . $priceEntry->expireDate . "\n";
     }
 
 } catch (Clx_Exception $e) {

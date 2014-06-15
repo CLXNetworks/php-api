@@ -19,7 +19,7 @@ try
     {
         echo 'id: ' . $gateway->id;
         echo ' name: ' . $gateway->name;
-        echo ' type: ' . $gateway->type;
+        echo ' type: ' . $gateway->type . "\n";
     }
 
 } catch (Clx_Exception $e) {
