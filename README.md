@@ -17,6 +17,8 @@ PHP Version 5.2 or later.
 ##Unit Tests
 To run unit tests, you'll need to have phpunit installed.
 
+[Installing PHPUnit](http://phpunit.de/manual/current/en/installation.html)
+
 
 ##License
 
