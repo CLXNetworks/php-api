@@ -150,7 +150,7 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
         catch( Clx_Exception $e )
         {
-            $this->assertEquals( 'Message: Could not find operator with id: 9999', $e->getMessage() );
+            $this->assertEquals( 'Could not find operator with id: 9999', $e->getMessage() );
             $this->assertEquals( 3001, $e->getCode());
         }
     }
@@ -210,7 +210,7 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
         catch( Clx_Exception $e )
         {
-            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 'Unable to find gateway with name: 9999.', $e->getMessage() );
             $this->assertEquals( 3001, $e->getCode());
         }
     }
@@ -258,7 +258,7 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
         catch( Clx_Exception $e )
         {
-            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 'Unable to find gateway with name: 9999.', $e->getMessage() );
             $this->assertEquals( 3001, $e->getCode());
         }
     }
@@ -307,7 +307,7 @@ class Clx_ApiTest extends PHPUnit_Framework_TestCase {
         }
         catch( Clx_Exception $e )
         {
-            $this->assertEquals( 'Message: Unable to find gateway with name: 9999.', $e->getMessage() );
+            $this->assertEquals( 'Unable to find gateway with name: 9999.', $e->getMessage() );
             $this->assertEquals( 3001, $e->getCode());
         }
     }
