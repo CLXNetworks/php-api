@@ -49,6 +49,9 @@ class Clx_Http_Response {
      */
     private function _setBody( $body )
     {
+
+
+
         if( !is_string( $body ) )
         {
             require_once 'Clx_Exception.php';
@@ -165,7 +168,7 @@ class Clx_Http_Response {
      */
     public function isSuccessful()
     {
-        if ( $this->statusCode >= 200 && $this->statusCode < 400 )
+        if ( $this->statusCode >= 200 && $this->statusCode < 300 )
         {
             return true;
         }

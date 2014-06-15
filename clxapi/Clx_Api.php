@@ -83,10 +83,10 @@ class Clx_Api {
 
         if ( !$http_response->isSuccessful() )
         {
-            if ( property_exists( $result, 'error' ) )
+            if ( $result && property_exists( $result, 'error' ) )
             {
                 require_once 'Clx_Exception.php';
-                throw new Clx_Exception( 'Message: ' . $result->error->message , NULL, $result->error->code );
+                throw new Clx_Exception( $result->error->message , NULL, $result->error->code );
             }
 
             require_once 'Clx_Exception.php';
