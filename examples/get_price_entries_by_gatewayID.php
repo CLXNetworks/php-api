@@ -26,7 +26,8 @@ try {
     }
 
 } catch (Clx_Exception $e) {
-    echo $e->getMessage();
+    echo 'Message: ' . $e->getMessage() . "\n";
+    echo 'Code: ' . $e->getCode(). "\n";
     var_dump( $e->getResponseObject() );
 }
 

@@ -21,9 +21,10 @@ try
         echo ' name: ' . $gateway->name;
         echo ' type: ' . $gateway->type;
     }
-}
-catch ( Exception $e ) {
-    echo $e->getMessage();
+
+} catch (Clx_Exception $e) {
+    echo 'Message: ' . $e->getMessage() . "\n";
+    echo 'Code: ' . $e->getCode(). "\n";
     var_dump( $e->getResponseObject() );
 }
 
