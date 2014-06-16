@@ -143,7 +143,6 @@ class Clx_Http_Client {
 
         if($method == 'GET')
         {
-            //@todo borde data parameter användas för att skcika med parametrar, tex date?
             return $httpAdapter->get( $auth, $uri );
         }
 
